@@ -1,21 +1,41 @@
-# 📁 Kavish Shah | Central Command Hub
-### *Access Point: kavishfortech.github.io/Kavishforgames*
+# ⚡ KAVISHFORTYTECH | NEURAL HUB
+### *The Central Deployment Interface for All Architect Projects*
 
-## 🛠 Overview
-This is the main entry point for the **Kavish Shah** digital network. It acts as a professional redirect portal using a high-fidelity cyberpunk aesthetic.
 
-## 🔗 Live Link
-[Deploy Site Here](https://kavishfortech.github.io/Kavishforgames)
-
-## 🚀 Key Features
-* **Targeted Redirects:** Pre-configured for the `Kavishforgames` repository.
-* **System Log:** Real-time terminal feedback on user hover.
-* **Adaptive Theme:** Syncopate-driven font styling with neon color-cycling.
-
-## 🏗 Setup
-1. Upload `index.html` to your GitHub repository.
-2. Enable **GitHub Pages** in the repository settings.
-3. Access the hub to navigate through your projects.
 
 ---
-*Created by Kavish Shah - Systems Architect.*
+
+## 🌐 Live Access
+**Universal Link:** [https://kavishfortech.github.io/-/](https://kavishfortech.github.io/-/)
+
+## 🏗 System Architecture
+This repository serves as the **Master Hub**. It is engineered with **Orientation-Awareness** to provide a seamless interface across all hardware nodes (Mobile, Tablet, and Desktop).
+
+### Key Features:
+* **Dual-Axis UI:** Adaptive grid that reshapes based on `Portrait` or `Landscape` orientation.
+* **Micro-Frame Logic:** Ensures game viewports remain visible even when browser navigation bars are present.
+* **Instant-Snap Performance:** Zero-latency navigation between project sub-domains.
+* **Unified Design System:** Signature Neon Blue/Pink color palette across all deployments.
+
+---
+
+## 🕹 Live Nodes
+| Project | URL | Description |
+| :--- | :--- | :--- |
+| **Neon Surfer 3D** | [/Subwaysurfers](https://kavishfortech.github.io/Subwaysurfers) | 3D Perspective runner with jump physics. |
+| **Neural Arcade** | [/Kavishforgames](https://kavishfortech.github.io/Kavishforgames) | The primary arcade database. |
+| **Source Code** | [/Subwaysurfers](https://github.com/kavishfortech/Subwaysurfers) | Repository for the 3D engine. |
+
+---
+
+## 🛠 Multi-Device Optimization
+The hub uses a **Fluid Layout Engine** that calculates viewport safety zones in real-time.
+
+
+
+### Orientation Protocols:
+1.  **Vertical (Portrait):** Single-column stacked cards for thumb-friendly navigation.
+2.  **Horizontal (Landscape):** Double-column grid to maximize screen real estate on wide displays.
+
+---
+*Created and maintained by [Kavish Shah](https://github.com/kavishfortech) — Systems Architect.*
