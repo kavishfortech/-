@@ -11,7 +11,6 @@
             --neon-blue: #00f2ff;
             --neon-green: #39ff14;
             --neon-pink: #ff00ea;
-            --neon-red: #ff3131;
             --bg-black: #050508;
             --panel-bg: rgba(12, 12, 20, 0.98);
         }
@@ -32,16 +31,16 @@
         /* --- THE SIGNATURE COLOR BOX --- */
         .header-section {
             width: 100%;
-            padding: 50px 15px;
+            padding: 40px 15px;
             display: flex;
             justify-content: center;
             background: #000;
             border-bottom: 2px solid var(--neon-blue);
-            margin-bottom: 40px;
+            margin-bottom: 30px;
         }
 
         .color-shift-box {
-            padding: 30px 45px;
+            padding: 25px 40px;
             border: 4px solid var(--neon-blue);
             border-radius: 12px;
             text-align: center;
@@ -49,19 +48,19 @@
             animation: borderCycle 8s infinite alternate;
             box-shadow: 0 0 25px rgba(0, 242, 255, 0.2);
             width: 100%;
-            max-width: 700px;
+            max-width: 600px;
         }
 
         @keyframes borderCycle {
-            0% { border-color: var(--neon-blue); box-shadow: 0 0 35px var(--neon-blue); }
-            50% { border-color: var(--neon-pink); box-shadow: 0 0 35px var(--neon-pink); }
-            100% { border-color: var(--neon-green); box-shadow: 0 0 35px var(--neon-green); }
+            0% { border-color: var(--neon-blue); box-shadow: 0 0 30px var(--neon-blue); }
+            50% { border-color: var(--neon-pink); box-shadow: 0 0 30px var(--neon-pink); }
+            100% { border-color: var(--neon-green); box-shadow: 0 0 30px var(--neon-green); }
         }
 
         .color-shift-box h1 {
             font-family: 'Syncopate', sans-serif;
-            font-size: clamp(1.5rem, 6vw, 3.5rem);
-            letter-spacing: -3px;
+            font-size: clamp(1.2rem, 5vw, 2.5rem);
+            letter-spacing: 2px;
             animation: textCycle 8s infinite alternate;
         }
 
@@ -71,104 +70,95 @@
             100% { color: var(--neon-green); text-shadow: 0 0 15px var(--neon-green); }
         }
 
-        /* --- REDIRECT MATRIX --- */
+        /* --- PROJECT GRID --- */
         .hub-container {
             width: 90%;
-            max-width: 900px;
+            max-width: 800px;
             display: grid;
             grid-template-columns: 1fr;
-            gap: 20px;
+            gap: 15px;
             padding-bottom: 50px;
         }
 
         .site-link {
             background: var(--panel-bg);
             border: 1px solid rgba(255,255,255,0.1);
-            padding: 25px;
-            border-radius: 15px;
+            padding: 20px;
+            border-radius: 12px;
             text-decoration: none;
             color: #fff;
             display: flex;
             align-items: center;
             justify-content: space-between;
             transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
         }
 
         .site-link:hover {
             border-color: var(--neon-blue);
-            transform: translateX(10px);
+            transform: scale(1.02);
             background: rgba(0, 242, 255, 0.05);
-            box-shadow: -5px 0 20px rgba(0, 242, 255, 0.2);
+            box-shadow: 0 0 20px rgba(0, 242, 255, 0.1);
         }
 
         .site-info h2 {
             font-family: 'Syncopate', sans-serif;
-            font-size: 1.2rem;
+            font-size: 1rem;
             color: var(--neon-blue);
-            margin-bottom: 5px;
+            margin-bottom: 4px;
         }
 
         .site-info p {
-            font-size: 0.8rem;
-            color: #888;
+            font-size: 0.7rem;
+            color: #666;
             letter-spacing: 1px;
         }
 
         .status-tag {
-            font-size: 0.7rem;
-            padding: 5px 10px;
+            font-size: 0.6rem;
+            padding: 4px 8px;
             border: 1px solid var(--neon-green);
             color: var(--neon-green);
             border-radius: 4px;
             text-transform: uppercase;
         }
 
-        /* --- TERMINAL FOOTER --- */
+        /* --- SYSTEM TERMINAL --- */
         .sys-log {
             width: 90%;
-            max-width: 900px;
+            max-width: 800px;
             background: #000;
-            padding: 20px;
-            margin: 20px 0;
-            border-radius: 10px;
-            height: 120px;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            height: 100px;
             overflow-y: auto;
             color: var(--neon-green);
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             border: 1px solid #111;
-        }
-
-        .scanline {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 2px;
-            background: rgba(0, 242, 255, 0.1);
-            opacity: 0.5;
-            z-index: 1000;
-            pointer-events: none;
-            animation: scan 4s linear infinite;
-        }
-
-        @keyframes scan {
-            0% { top: -10%; }
-            100% { top: 110%; }
         }
     </style>
 </head>
 <body>
 
-    <div class="scanline"></div>
-
     <header class="header-section">
         <div class="color-shift-box">
-            <h1>CENTRAL HUB</h1>
-            <p style="color: #666; font-size: 0.7rem; margin-top: 10px; letter-spacing: 5px;">KAVISH SHAH | NETWORK ACCESS</p>
+            <h1>COMMAND CENTER</h1>
+            <p style="color: #444; font-size: 0.6rem; margin-top: 10px; letter-spacing: 4px;">KAVISHFORTYTECH // ARCHITECT_V1</p>
         </div>
     </header>
 
+    <div class="sys-log" id="termLog">> [SYS] Initializing Master Hub...</div>
+
     <main class="hub-container">
-        <a href="https://kavishfortech.github.io/Kavishforgames" class="site-link" onmouseover="log('Uplink: KavishForGames Handshake...')">
+        <a href="https://kavishfortech.github.io/Subwaysurfers" class="site-link" onmouseover="log('Uplink: Subway Surfers 3D Engine Ready.')">
+            <div class="site-info">
+                <h2>NEON SURFER 3D</h2>
+                <p>kavishfortech.github.io/Subwaysurfers</p>
+            </div>
+            <div class="status-tag">Live</div>
+        </a>
+
+        <a href="https://kavishfortech.github.io/Kavishforgames" class="site-link" onmouseover="log('Accessing Primary Arcade Database...')">
             <div class="site-info">
                 <h2>NEURAL ARCADE</h2>
                 <p>kavishfortech.github.io/Kavishforgames</p>
@@ -176,29 +166,26 @@
             <div class="status-tag">Primary</div>
         </a>
 
-        <a href="#" class="site-link" onmouseover="log('Warning: No link assigned to Slot 02.')">
+        <a href="#" class="site-link" style="opacity: 0.5; pointer-events: none;">
             <div class="site-info">
-                <h2>UPLINK 02</h2>
-                <p>System Expansion Pending...</p>
+                <h2>FUTURE NODE</h2>
+                <p>Encryption Pending...</p>
             </div>
-            <div class="status-tag" style="border-color: #555; color: #555;">Offline</div>
+            <div class="status-tag" style="border-color: #444; color: #444;">Encrypted</div>
         </a>
     </main>
-
-    <div class="sys-log" id="termLog">[SYS] Hub operational. Handshaking with Kavishforgames...</div>
 
     <script>
         function log(msg) {
             const l = document.getElementById('termLog');
-            const time = new Date().toLocaleTimeString().split(' ')[0];
-            l.innerHTML += `<br>[${time}] > ${msg}`;
+            l.innerHTML += `<br>> [INFO] ${msg}`;
             l.scrollTop = l.scrollHeight;
         }
 
-        // Initial Boot Sequence
-        setTimeout(() => log("Scanning kavishfortech.github.io..."), 500);
-        setTimeout(() => log("Directory /Kavishforgames verified."), 1000);
-        setTimeout(() => log("Redirect Matrix: STABLE."), 1500);
+        // Boot sequence
+        setTimeout(() => log("Verifying kavishfortech.github.io credentials..."), 500);
+        setTimeout(() => log("Subwaysurfers connection: STABLE."), 1000);
+        setTimeout(() => log("Ready for user input."), 1500);
     </script>
 </body>
 </html>
