@@ -3,189 +3,158 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>KAVISH SHAH | COMMAND CENTER</title>
+    <title>KAVISH SHAH | MULTI-AXIS HUB</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=JetBrains+Mono:wght@400;800&display=swap');
 
         :root {
             --neon-blue: #00f2ff;
-            --neon-green: #39ff14;
             --neon-pink: #ff00ea;
-            --bg-black: #050508;
-            --panel-bg: rgba(12, 12, 20, 0.98);
+            --bg: #050508;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
             font-family: 'JetBrains Mono', monospace;
-            background: var(--bg-black);
+            background: var(--bg);
             color: #fff;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             overflow-x: hidden;
+            padding: 10px;
         }
 
-        /* --- THE SIGNATURE COLOR BOX --- */
-        .header-section {
-            width: 100%;
-            padding: 40px 15px;
-            display: flex;
-            justify-content: center;
-            background: #000;
-            border-bottom: 2px solid var(--neon-blue);
-            margin-bottom: 30px;
-        }
-
-        .color-shift-box {
-            padding: 25px 40px;
-            border: 4px solid var(--neon-blue);
-            border-radius: 12px;
-            text-align: center;
-            background: rgba(0, 0, 0, 0.9);
-            animation: borderCycle 8s infinite alternate;
-            box-shadow: 0 0 25px rgba(0, 242, 255, 0.2);
-            width: 100%;
-            max-width: 600px;
-        }
-
-        @keyframes borderCycle {
-            0% { border-color: var(--neon-blue); box-shadow: 0 0 30px var(--neon-blue); }
-            50% { border-color: var(--neon-pink); box-shadow: 0 0 30px var(--neon-pink); }
-            100% { border-color: var(--neon-green); box-shadow: 0 0 30px var(--neon-green); }
-        }
-
-        .color-shift-box h1 {
-            font-family: 'Syncopate', sans-serif;
-            font-size: clamp(1.2rem, 5vw, 2.5rem);
-            letter-spacing: 2px;
-            animation: textCycle 8s infinite alternate;
-        }
-
-        @keyframes textCycle {
-            0% { color: var(--neon-blue); text-shadow: 0 0 15px var(--neon-blue); }
-            50% { color: var(--neon-pink); text-shadow: 0 0 15px var(--neon-pink); }
-            100% { color: var(--neon-green); text-shadow: 0 0 15px var(--neon-green); }
-        }
-
-        /* --- PROJECT GRID --- */
-        .hub-container {
-            width: 90%;
+        /* --- FLEXIBLE HEADER --- */
+        .header-box {
+            width: 95%;
             max-width: 800px;
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 15px;
-            padding-bottom: 50px;
+            padding: 20px;
+            border: 2px solid var(--neon-blue);
+            text-align: center;
+            margin: 10px 0;
+            background: #000;
+            border-radius: 10px;
+            transition: 0.3s;
         }
 
-        .site-link {
-            background: var(--panel-bg);
-            border: 1px solid rgba(255,255,255,0.1);
+        h1 {
+            font-family: 'Syncopate', sans-serif;
+            font-size: clamp(1rem, 5vw, 2rem);
+            color: var(--neon-blue);
+        }
+
+        /* --- THE RESPONSIVE PROJECT GRID --- */
+        .project-grid {
+            display: grid;
+            width: 100%;
+            max-width: 1000px;
+            gap: 15px;
+            /* Adaptive Columns */
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            margin-top: 20px;
+        }
+
+        /* --- ORIENTATION SPECIFIC OVERRIDES --- */
+        @media (orientation: landscape) {
+            body { flex-direction: row; flex-wrap: wrap; justify-content: center; align-content: flex-start; }
+            .header-box { width: 100%; margin-bottom: 20px; }
+            .project-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-height: 500px) {
+            /* Fix for landscape mobile where height is very small */
+            .header-box { padding: 10px; margin: 5px; }
+            h1 { font-size: 1.2rem; }
+        }
+
+        /* --- PROJECT CARDS --- */
+        .card {
+            background: #0d0d14;
+            border: 1px solid #222;
             padding: 20px;
             border-radius: 12px;
             text-decoration: none;
             color: #fff;
             display: flex;
-            align-items: center;
-            justify-content: space-between;
-            transition: all 0.3s ease;
+            flex-direction: column;
+            transition: 0.3s;
+            border-left: 4px solid var(--neon-blue);
         }
 
-        .site-link:hover {
-            border-color: var(--neon-blue);
-            transform: scale(1.02);
-            background: rgba(0, 242, 255, 0.05);
-            box-shadow: 0 0 20px rgba(0, 242, 255, 0.1);
+        .card:hover {
+            background: #161625;
+            border-left-color: var(--neon-pink);
+            transform: translateX(5px);
         }
 
-        .site-info h2 {
-            font-family: 'Syncopate', sans-serif;
-            font-size: 1rem;
-            color: var(--neon-blue);
-            margin-bottom: 4px;
-        }
+        .card h2 { font-size: 0.9rem; margin-bottom: 5px; font-family: 'Syncopate'; }
+        .card p { font-size: 0.7rem; color: #888; margin-bottom: 10px; }
+        .card .link-text { font-size: 0.6rem; color: var(--neon-pink); font-weight: 800; }
 
-        .site-info p {
-            font-size: 0.7rem;
-            color: #666;
-            letter-spacing: 1px;
-        }
-
-        .status-tag {
-            font-size: 0.6rem;
-            padding: 4px 8px;
-            border: 1px solid var(--neon-green);
-            color: var(--neon-green);
-            border-radius: 4px;
-            text-transform: uppercase;
-        }
-
-        /* --- SYSTEM TERMINAL --- */
-        .sys-log {
-            width: 90%;
-            max-width: 800px;
+        /* --- SYSTEM STATUS --- */
+        .status-bar {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
             background: #000;
-            padding: 15px;
-            margin-bottom: 20px;
-            border-radius: 8px;
-            height: 100px;
-            overflow-y: auto;
-            color: var(--neon-green);
-            font-size: 0.75rem;
-            border: 1px solid #111;
+            padding: 5px 20px;
+            font-size: 0.6rem;
+            color: #444;
+            border-top: 1px solid #111;
+            display: flex;
+            justify-content: space-between;
         }
     </style>
 </head>
 <body>
 
-    <header class="header-section">
-        <div class="color-shift-box">
-            <h1>COMMAND CENTER</h1>
-            <p style="color: #444; font-size: 0.6rem; margin-top: 10px; letter-spacing: 4px;">KAVISHFORTYTECH // ARCHITECT_V1</p>
-        </div>
+    <header class="header-box">
+        <h1>KAVISHFORTYTECH</h1>
+        <p style="font-size: 0.5rem; letter-spacing: 3px; color: #444;">MULTI-DEVICE DEPLOYMENT // V.4.0</p>
     </header>
 
-    <div class="sys-log" id="termLog">> [SYS] Initializing Master Hub...</div>
-
-    <main class="hub-container">
-        <a href="https://kavishfortech.github.io/Subwaysurfers" class="site-link" onmouseover="log('Uplink: Subway Surfers 3D Engine Ready.')">
-            <div class="site-info">
-                <h2>NEON SURFER 3D</h2>
-                <p>kavishfortech.github.io/Subwaysurfers</p>
-            </div>
-            <div class="status-tag">Live</div>
+    <main class="project-grid">
+        <a href="https://kavishfortech.github.io/Subwaysurfers" class="card">
+            <h2>NEON SURFER 3D</h2>
+            <p>Pseudo-3D runner optimized for touch/horizontal/vertical play.</p>
+            <span class="link-text">GO TO DEPLOYMENT ></span>
         </a>
 
-        <a href="https://kavishfortech.github.io/Kavishforgames" class="site-link" onmouseover="log('Accessing Primary Arcade Database...')">
-            <div class="site-info">
-                <h2>NEURAL ARCADE</h2>
-                <p>kavishfortech.github.io/Kavishforgames</p>
-            </div>
-            <div class="status-tag">Primary</div>
+        <a href="https://kavishfortech.github.io/Kavishforgames" class="card">
+            <h2>NEURAL ARCADE</h2>
+            <p>Main game collection hub featuring Snake and Retro Classics.</p>
+            <span class="link-text">GO TO HUB ></span>
         </a>
 
-        <a href="#" class="site-link" style="opacity: 0.5; pointer-events: none;">
-            <div class="site-info">
-                <h2>FUTURE NODE</h2>
-                <p>Encryption Pending...</p>
-            </div>
-            <div class="status-tag" style="border-color: #444; color: #444;">Encrypted</div>
+        <a href="https://github.com/kavishfortech" class="card">
+            <h2>GITHUB REPOS</h2>
+            <p>View the source code and documentation for all Architect builds.</p>
+            <span class="link-text">OPEN REPOSITORY ></span>
         </a>
     </main>
 
+    <footer class="status-bar">
+        <span>LOC: kavishfortech.github.io</span>
+        <span id="orientDisplay">MODE: PORTRAIT</span>
+    </footer>
+
     <script>
-        function log(msg) {
-            const l = document.getElementById('termLog');
-            l.innerHTML += `<br>> [INFO] ${msg}`;
-            l.scrollTop = l.scrollHeight;
+        function updateOrientation() {
+            const display = document.getElementById('orientDisplay');
+            if (window.innerWidth > window.innerHeight) {
+                display.innerText = "MODE: LANDSCAPE";
+                display.style.color = "var(--neon-pink)";
+            } else {
+                display.innerText = "MODE: PORTRAIT";
+                display.style.color = "var(--neon-blue)";
+            }
         }
 
-        // Boot sequence
-        setTimeout(() => log("Verifying kavishfortech.github.io credentials..."), 500);
-        setTimeout(() => log("Subwaysurfers connection: STABLE."), 1000);
-        setTimeout(() => log("Ready for user input."), 1500);
+        window.addEventListener('resize', updateOrientation);
+        window.onload = updateOrientation;
     </script>
 </body>
 </html>
