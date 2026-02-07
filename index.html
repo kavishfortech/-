@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>KAVISH SHAH | DEPLOYMENT HUB</title>
+    <title>KAVISH SHAH | HUB</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=JetBrains+Mono:wght@400;800&display=swap');
 
@@ -18,6 +18,7 @@
             background: #050508; color: #fff; 
             font-family: 'JetBrains Mono', monospace; 
             padding: 15px; display: flex; flex-direction: column; align-items: center; 
+            min-height: 100vh;
         }
 
         /* --- THE COLOR-SHIFTING HEADER --- */
@@ -25,7 +26,7 @@
             width: 100%;
             max-width: 800px;
             padding: 25px 10px;
-            margin: 15px 0;
+            margin: 20px 0;
             text-align: center;
             background: #000;
             border-radius: 12px;
@@ -52,68 +53,57 @@
             66% { color: var(--neon-green); text-shadow: 0 0 10px var(--neon-green); }
         }
 
-        /* --- DEPLOYMENT PAGE SECTION --- */
-        .deploy-banner {
-            width: 100%;
-            max-width: 800px;
-            background: rgba(57, 255, 20, 0.05);
-            border: 1px dashed var(--neon-green);
-            padding: 12px;
-            border-radius: 8px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            font-size: 0.7rem;
-        }
-
-        .pulse {
-            width: 8px; height: 8px;
-            background: var(--neon-green);
-            border-radius: 50%;
-            display: inline-block;
-            margin-right: 5px;
-            box-shadow: 0 0 8px var(--neon-green);
-            animation: pulse-blink 1.5s infinite;
-        }
-
-        @keyframes pulse-blink {
-            0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; }
-        }
-
-        /* --- RESPONSIVE GRID --- */
+        /* --- THE RESPONSIVE PROJECT GRID --- */
         .project-grid {
             display: grid;
             width: 100%;
             max-width: 900px;
-            gap: 15px;
+            gap: 20px;
+            /* 1 col on mobile, 3 cols on desktop */
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            margin-top: 10px;
         }
 
         .card {
             background: #0d0d14;
-            border: 1px solid #222;
-            padding: 20px;
-            border-radius: 12px;
+            border: 2px solid #222;
+            padding: 25px;
+            border-radius: 15px;
             text-decoration: none;
             color: #fff;
-            transition: 0.3s;
-            position: relative;
-            overflow: hidden;
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: 160px;
         }
 
-        .card:hover { border-color: var(--neon-blue); background: #1a1a2e; transform: translateY(-3px); }
+        /* Hover Effects */
+        .card:hover {
+            transform: translateY(-8px);
+            background: #161625;
+        }
 
-        .card h2 { font-size: 0.85rem; font-family: 'Syncopate'; margin-bottom: 5px; }
-        .card p { font-size: 0.7rem; color: #777; }
+        /* Specific Card Accents */
+        .card.surfer { border-left: 5px solid var(--neon-blue); }
+        .card.arcade { border-left: 5px solid var(--neon-pink); }
+        .card.profile { border-left: 5px solid var(--neon-green); }
 
-        /* --- ORIENTATION STYLES --- */
+        .card.surfer:hover { border-color: var(--neon-blue); box-shadow: 0 0 20px rgba(0, 242, 255, 0.2); }
+        .card.arcade:hover { border-color: var(--neon-pink); box-shadow: 0 0 20px rgba(255, 0, 234, 0.2); }
+        .card.profile:hover { border-color: var(--neon-green); box-shadow: 0 0 20px rgba(57, 255, 20, 0.2); }
+
+        .card h2 { font-size: 0.9rem; font-family: 'Syncopate'; margin-bottom: 8px; }
+        .card p { font-size: 0.75rem; color: #888; line-height: 1.4; }
+
+        /* --- ADAPTIVE ORIENTATION --- */
         @media (orientation: landscape) and (max-height: 500px) {
-            .header-box { padding: 8px; margin: 5px 0; }
-            .deploy-banner { margin-bottom: 10px; padding: 5px; }
+            .header-box { padding: 10px; margin: 5px 0; }
+            .project-grid { gap: 10px; }
+            .card { min-height: 120px; padding: 15px; }
         }
 
-        .footer-tag { margin-top: 30px; font-size: 0.6rem; color: #333; letter-spacing: 3px; }
+        .footer-tag { margin-top: auto; padding: 40px 0 20px; font-size: 0.6rem; color: #333; letter-spacing: 5px; }
     </style>
 </head>
 <body>
@@ -122,16 +112,24 @@
         <h1>KAVISHFORTYTECH</h1>
     </header>
 
-    <div class="deploy-banner">
-        <div><span class="pulse"></span> SYSTEM: DEPLOYMENT_ACTIVE</div>
-        <a href="https://github.com/kavishfortech/Subwaysurfers/deployments" style="color:var(--neon-green); text-decoration:none;">VIEW LOGS ></a>
-    </div>
-
     <main class="project-grid">
-        <a href="https://kavishfortech.github.io/Subwaysurfers" class="card">
-            <h2 style="color:var(--neon-blue)">NEON SURFER 3D</h2>
-            <p>Pseudo-3D runner. Optimized for horizontal & vertical views.</p>
+        <a href="https://kavishfortech.github.io/Subwaysurfers" class="card surfer">
+            <h2 style="color:var(--neon-blue)">NEON SURFER</h2>
+            <p>High-speed 3D infinite runner. Optimized for touch and landscape play.</p>
         </a>
-        <a href="https://kavishfortech.github.io/Kavishforgames" class="card">
+
+        <a href="https://kavishfortech.github.io/Kavishforgames" class="card arcade">
             <h2 style="color:var(--neon-pink)">NEURAL ARCADE</h2>
-            <p>Primary portal for secondary arcade deployments.</p>
+            <p>Access the full database of retro classics and custom arcade builds.</p>
+        </a>
+
+        <a href="https://github.com/kavishfortech" class="card profile">
+            <h2 style="color:var(--neon-green)">GITHUB PROFILE</h2>
+            <p>Review the source code, master branches, and developer repositories.</p>
+        </a>
+    </main>
+
+    <div class="footer-tag">SYSTEMS_HUB_V6.0 // PORTRAIT & LANDSCAPE READY</div>
+
+</body>
+</html>
