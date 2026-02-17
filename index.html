@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>KAVISH ARCHITECT | RECOVERY</title>
+    <title>KAVISH SHAH | THE ARCHITECT</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=JetBrains+Mono:wght@400;800&display=swap');
 
@@ -11,12 +11,10 @@
             --neon-blue: #00f2ff;
             --neon-green: #39ff14;
             --neon-pink: #ff00ea;
-            --danger: #ff3131;
-            --gold: #ffd700;
             --bg-black: #050508;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; touch-action: manipulation; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
             font-family: 'JetBrains Mono', monospace;
@@ -27,241 +25,126 @@
             flex-direction: column;
             align-items: center;
             overflow-x: hidden;
-            overflow-y: auto; /* Recovery fix for scrolling */
+            overflow-y: auto;
         }
 
-        /* --- TRADEMARK HEADER --- */
+        /* --- RESTORED COLOR CHANGING TRADEMARK BOX --- */
         .header-section {
             width: 100%;
-            padding: 20px 15px;
+            padding: 40px 15px;
             display: flex;
             justify-content: center;
             background: #000;
-            border-bottom: 2px solid var(--neon-blue);
         }
 
         .color-shift-box {
-            padding: 20px;
-            border: 3px solid var(--neon-blue);
-            border-radius: 8px;
+            padding: 30px 40px;
+            border: 4px solid var(--neon-blue);
+            border-radius: 12px;
             text-align: center;
+            background: rgba(0, 0, 0, 0.9);
+            /* Border Cycle Restored */
             animation: borderCycle 8s infinite alternate;
+            width: 100%;
+            max-width: 650px;
+        }
+
+        @keyframes borderCycle {
+            0% { border-color: var(--neon-blue); box-shadow: 0 0 35px var(--neon-blue); }
+            50% { border-color: var(--neon-pink); box-shadow: 0 0 35px var(--neon-pink); }
+            100% { border-color: var(--neon-green); box-shadow: 0 0 35px var(--neon-green); }
+        }
+
+        .color-shift-box h1 {
+            font-family: 'Syncopate', sans-serif;
+            font-size: clamp(1.8rem, 7vw, 3rem);
+            letter-spacing: -1px;
+            /* Text Color Cycle Restored */
+            animation: textCycle 8s infinite alternate;
+        }
+
+        @keyframes textCycle {
+            0% { color: var(--neon-blue); text-shadow: 0 0 15px var(--neon-blue); }
+            50% { color: var(--neon-pink); text-shadow: 0 0 15px var(--neon-pink); }
+            100% { color: var(--neon-green); text-shadow: 0 0 15px var(--neon-green); }
+        }
+
+        /* --- HUB CARD LAYOUT --- */
+        .grid-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            padding: 20px;
             width: 100%;
             max-width: 500px;
         }
 
-        @keyframes borderCycle {
-            0% { border-color: var(--neon-blue); box-shadow: 0 0 15px var(--neon-blue); }
-            50% { border-color: var(--neon-pink); box-shadow: 0 0 15px var(--neon-pink); }
-            100% { border-color: var(--neon-green); box-shadow: 0 0 15px var(--neon-green); }
-        }
-
-        h1 { font-family: 'Syncopate', sans-serif; font-size: 1.5rem; letter-spacing: 2px; }
-
-        /* --- PORTAL GRID (From Screenshot) --- */
-        .portal-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            padding: 20px;
-            width: 100%;
-            max-width: 450px;
-        }
-
         .portal-card {
-            background: rgba(12, 12, 20, 0.95);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-left: 5px solid var(--neon-blue);
-            padding: 20px;
-            border-radius: 10px;
+            background: rgba(12, 12, 20, 0.98);
+            border: 1px solid rgba(255,255,255,0.05);
+            padding: 25px;
+            border-radius: 15px;
             text-decoration: none;
             color: white;
             transition: 0.3s;
-        }
-
-        .portal-card:hover { transform: translateX(10px); background: #111; }
-        .card-title { font-family: 'Syncopate'; font-size: 0.9rem; margin-bottom: 5px; }
-        .card-desc { font-size: 0.75rem; color: #888; line-height: 1.4; }
-
-        /* --- GAME ENGINE BOX --- */
-        .game-engine {
-            width: 95vw;
-            max-width: 400px;
-            background: #0a0a0f;
-            border: 2px solid #222;
-            border-radius: 15px;
-            padding: 15px;
-            margin-top: 20px;
             position: relative;
-        }
-
-        .canvas-area {
-            position: relative;
-            width: 100%;
-            aspect-ratio: 1/1.2;
-            background: #000;
-            border: 1px solid #333;
             overflow: hidden;
         }
 
-        canvas { width: 100%; height: 100%; }
-
-        .overlay {
-            position: absolute; inset: 0; background: rgba(0,0,0,0.9);
-            display: flex; flex-direction: column; align-items: center;
-            justify-content: center; z-index: 100; text-align: center;
+        .portal-card::before {
+            content: '';
+            position: absolute;
+            left: 0; top: 0; bottom: 0;
+            width: 5px;
         }
 
-        .hidden { display: none !important; }
-
-        /* --- BUTTONS --- */
-        .btn {
-            padding: 12px 20px; margin: 5px; background: none;
-            border: 2px solid var(--neon-blue); color: var(--neon-blue);
-            font-family: 'Syncopate'; font-size: 0.65rem; cursor: pointer;
+        .portal-card:hover {
+            transform: scale(1.02);
+            background: #111;
         }
-        .btn-gold { border-color: var(--gold); color: var(--gold); }
-        .btn-danger { border-color: var(--danger); color: var(--danger); }
 
-        #hud {
-            display: flex; justify-content: space-between;
-            padding: 10px; font-size: 0.8rem; border-bottom: 1px solid #222;
+        .card-title { font-family: 'Syncopate'; font-size: 1rem; margin-bottom: 8px; text-transform: uppercase; }
+        .card-desc { font-size: 0.8rem; color: #888; line-height: 1.5; }
+
+        /* Card Colors */
+        .blue-side::before { background: var(--neon-blue); }
+        .pink-side::before { background: var(--neon-pink); }
+        .green-side::before { background: var(--neon-green); }
+
+        .sys-log { 
+            width: 90%; max-width: 500px; background: #000; 
+            padding: 15px; margin: 20px 0; border-radius: 10px; 
+            color: var(--neon-green); font-size: 0.7rem; border: 1px solid #111; 
         }
     </style>
 </head>
 <body>
 
-<header class="header-section">
-    <div class="color-shift-box">
-        <h1>KAVISHFORTECH</h1>
-    </div>
-</header>
-
-<div class="portal-grid">
-    <a href="https://kavishfortech.github.io/Ai/" class="portal-card" style="border-left-color: var(--neon-pink);">
-        <div class="card-title" style="color: var(--neon-pink);">NEURAL AI ARCHITECT</div>
-        <div class="card-desc">Advanced AI integration portal. Access the neural core system.</div>
-    </a>
-
-    <a href="#" class="portal-card" style="border-left-color: var(--neon-blue);">
-        <div class="card-title" style="color: var(--neon-blue);">NEON SURFER</div>
-        <div class="card-desc">Pseudo-2D runner. Optimized for horizontal and vertical safety.</div>
-    </a>
-</div>
-
-<div class="game-engine">
-    <div id="hud">
-        <span style="color:var(--neon-blue)">DIST: <span id="distVal">0</span></span>
-        <span style="color:var(--gold)">COINS: <span id="coinVal">0</span></span>
-    </div>
-    
-    <div class="canvas-area">
-        <canvas id="gameCanvas"></canvas>
-
-        <div id="start-screen" class="overlay">
-            <h2 style="font-family:'Syncopate'; margin-bottom:15px;">SURFER V6</h2>
-            <button class="btn" onclick="Game.start()">START RUN</button>
-            <button class="btn btn-gold" onclick="Game.buyBoard()">BUY BOARD (50 COINS)</button>
+    <header class="header-section">
+        <div class="color-shift-box">
+            <h1>KAVISHFORTECH</h1>
+            <p style="color: #666; font-size: 0.6rem; margin-top: 10px; letter-spacing: 5px;">COMMANDER HUB</p>
         </div>
+    </header>
 
-        <div id="death-screen" class="overlay hidden">
-            <h2 style="color:var(--danger); font-family:'Syncopate';">CRASHED</h2>
-            <p id="stats" style="margin:10px 0; font-size:0.8rem;"></p>
-            <button class="btn" onclick="Game.start()">REBOOT</button>
-            <button class="btn btn-gold" onclick="Game.buyBoard()">BUY BOARD (50 COINS)</button>
-        </div>
-    </div>
-</div>
+    <main class="grid-container">
+        <a href="https://kavishfortech.github.io/subwaysurfers/" class="portal-card blue-side">
+            <div class="card-title" style="color: var(--neon-blue);">NEON SURFER</div>
+            <div class="card-desc">Pseudo-3D runner. Optimized for high-speed mobile and desktop performance.</div>
+        </a>
 
-<script>
-    const canvas = document.getElementById('gameCanvas');
-    const ctx = canvas.getContext('2d');
-    canvas.width = 400; canvas.height = 500;
+        <a href="https://kavishfortech.github.io/Ai/" class="portal-card pink-side">
+            <div class="card-title" style="color: var(--neon-pink);">NEURAL ARCADE</div>
+            <div class="card-desc">The primary AI game portal for all secondary arcade deployments and neural testing.</div>
+        </a>
 
-    const Game = {
-        active: false, coins: 0, hasBoard: false, dist: 0,
-        obs: [], cns: [], speed: 6,
-        
-        start() {
-            this.active = true; this.dist = 0; this.speed = 6;
-            this.obs = []; this.cns = [];
-            document.getElementById('start-screen').classList.add('hidden');
-            document.getElementById('death-screen').classList.add('hidden');
-            this.player = { x: 50, y: 350, vy: 0, jmps: 0 };
-            this.loop();
-        },
+        <a href="https://github.com/kavishfortech" class="portal-card green-side">
+            <div class="card-title" style="color: var(--neon-green);">GITHUB PROFILE</div>
+            <div class="card-desc">Access source repositories, branch logs, and developer system stats.</div>
+        </a>
+    </main>
 
-        buyBoard() {
-            if (this.coins >= 50 && !this.hasBoard) {
-                this.coins -= 50; this.hasBoard = true;
-                document.getElementById('coinVal').innerText = this.coins;
-                alert("SURFBOARD EQUIPPED!");
-            } else { alert(this.hasBoard ? "ALREADY EQUIPPED" : "NEED 50 COINS"); }
-        },
+    <div class="sys-log">> SYSTEM READY...<br>> ALL PORTALS ACTIVE...<br>> REDIRECTS ENABLED...</div>
 
-        die() {
-            if (this.hasBoard) { this.hasBoard = false; this.obs = []; return; }
-            this.active = false;
-            document.getElementById('death-screen').classList.remove('hidden');
-            document.getElementById('stats').innerText = `DIST: ${Math.floor(this.dist)} | COINS: ${this.coins}`;
-        },
-
-        loop() {
-            if (!this.active) return;
-            ctx.clearRect(0,0,400,500);
-
-            // Ground
-            ctx.fillStyle = "#111"; ctx.fillRect(0, 400, 400, 100);
-            
-            // Player Logic
-            this.player.vy += 0.7; this.player.y += this.player.vy;
-            if (this.player.y > 350) { this.player.y = 350; this.player.vy = 0; this.player.jmps = 0; }
-            
-            ctx.fillStyle = this.hasBoard ? "#ff00ea" : "#00f2ff";
-            ctx.fillRect(this.player.x, this.player.y, 40, 50);
-            if(this.hasBoard) ctx.fillRect(this.player.x - 5, this.player.y + 45, 50, 5);
-
-            // Spawning
-            if (Math.random() < 0.02) this.obs.push({x: 420, y: 360, w: 30, h: 40});
-            if (Math.random() < 0.03) this.cns.push({x: 420, y: 250 + Math.random()*100});
-
-            // Obstacles
-            this.obs.forEach((o, i) => {
-                o.x -= this.speed;
-                ctx.fillStyle = "red"; ctx.fillRect(o.x, o.y, o.w, o.h);
-                if (this.player.x < o.x + o.w && this.player.x + 40 > o.x && 
-                    this.player.y < o.y + o.h && this.player.y + 50 > o.y) {
-                    this.obs.splice(i, 1); this.die();
-                }
-            });
-
-            // Coins
-            this.cns.forEach((c, i) => {
-                c.x -= this.speed;
-                ctx.fillStyle = "gold"; ctx.beginPath(); ctx.arc(c.x, c.y, 10, 0, 7); ctx.fill();
-                if (Math.hypot(this.player.x+20 - c.x, this.player.y+25 - c.y) < 30) {
-                    this.coins += 5; this.cns.splice(i, 1);
-                    document.getElementById('coinVal').innerText = this.coins;
-                }
-            });
-
-            this.dist += 0.1; this.speed += 0.001;
-            document.getElementById('distVal').innerText = Math.floor(this.dist);
-            requestAnimationFrame(() => this.loop());
-        }
-    };
-
-    window.addEventListener('touchstart', () => { 
-        if(Game.active && Game.player.jmps < 2) { 
-            Game.player.vy = -12; Game.player.jmps++; 
-        } 
-    });
-
-    window.addEventListener('keydown', (e) => { 
-        if((e.code === 'Space' || e.code === 'ArrowUp') && Game.active && Game.player.jmps < 2) { 
-            Game.player.vy = -12; Game.player.jmps++; 
-        } 
-    });
-</script>
 </body>
 </html>
