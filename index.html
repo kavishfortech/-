@@ -3,132 +3,265 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>KAVISH SHAH | HUB</title>
+    <title>KAVISH ARCHITECT | RECOVERY</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=JetBrains+Mono:wght@400;800&display=swap');
 
         :root {
             --neon-blue: #00f2ff;
-            --neon-pink: #ff00ea;
             --neon-green: #39ff14;
+            --neon-pink: #ff00ea;
+            --danger: #ff3131;
+            --gold: #ffd700;
+            --bg-black: #050508;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { 
-            background: #050508; color: #fff; 
-            font-family: 'JetBrains Mono', monospace; 
-            padding: 15px; display: flex; flex-direction: column; align-items: center; 
-            min-height: 100vh;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; touch-action: manipulation; }
 
-        /* --- THE COLOR-SHIFTING HEADER --- */
-        .header-box {
-            width: 100%;
-            max-width: 800px;
-            padding: 25px 10px;
-            margin: 20px 0;
-            text-align: center;
-            background: #000;
-            border-radius: 12px;
-            border: 4px solid var(--neon-blue);
-            animation: colorShift 6s linear infinite;
-        }
-
-        h1 {
-            font-family: 'Syncopate', sans-serif;
-            font-size: clamp(1rem, 5vw, 2.2rem);
-            letter-spacing: 2px;
-            animation: textShift 6s linear infinite;
-        }
-
-        /* Border Animation */
-        @keyframes colorShift {
-            0%, 100% { border-color: var(--neon-blue); box-shadow: 0 0 15px var(--neon-blue); }
-            33% { border-color: var(--neon-pink); box-shadow: 0 0 15px var(--neon-pink); }
-            66% { border-color: var(--neon-green); box-shadow: 0 0 15px var(--neon-green); }
-        }
-
-        /* Text Animation */
-        @keyframes textShift {
-            0%, 100% { color: var(--neon-blue); text-shadow: 0 0 10px var(--neon-blue); }
-            33% { color: var(--neon-pink); text-shadow: 0 0 10px var(--neon-pink); }
-            66% { color: var(--neon-green); text-shadow: 0 0 10px var(--neon-green); }
-        }
-
-        /* --- PROJECT GRID --- */
-        .project-grid {
-            display: grid;
-            width: 100%;
-            max-width: 900px;
-            gap: 20px;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            margin-top: 10px;
-        }
-
-        .card {
-            background: #0d0d14;
-            border: 2px solid #222;
-            padding: 25px;
-            border-radius: 15px;
-            text-decoration: none;
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            background: var(--bg-black);
             color: #fff;
-            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
+            align-items: center;
+            overflow-x: hidden;
+            overflow-y: auto; /* Recovery fix for scrolling */
+        }
+
+        /* --- TRADEMARK HEADER --- */
+        .header-section {
+            width: 100%;
+            padding: 20px 15px;
+            display: flex;
             justify-content: center;
-            min-height: 160px;
+            background: #000;
+            border-bottom: 2px solid var(--neon-blue);
         }
 
-        .card:hover {
-            transform: translateY(-8px);
-            background: #161625;
+        .color-shift-box {
+            padding: 20px;
+            border: 3px solid var(--neon-blue);
+            border-radius: 8px;
+            text-align: center;
+            animation: borderCycle 8s infinite alternate;
+            width: 100%;
+            max-width: 500px;
         }
 
-        /* Box Specific Accents */
-        .card.surfer { border-left: 5px solid var(--neon-blue); }
-        .card.arcade { border-left: 5px solid var(--neon-pink); }
-        .card.profile { border-left: 5px solid var(--neon-green); }
-
-        .card.surfer:hover { border-color: var(--neon-blue); box-shadow: 0 0 20px rgba(0, 242, 255, 0.2); }
-        .card.arcade:hover { border-color: var(--neon-pink); box-shadow: 0 0 20px rgba(255, 0, 234, 0.2); }
-        .card.profile:hover { border-color: var(--neon-green); box-shadow: 0 0 20px rgba(57, 255, 20, 0.2); }
-
-        .card h2 { font-size: 0.9rem; font-family: 'Syncopate'; margin-bottom: 8px; }
-        .card p { font-size: 0.75rem; color: #888; line-height: 1.4; }
-
-        /* --- ORIENTATION RULES --- */
-        @media (orientation: landscape) and (max-height: 500px) {
-            .header-box { padding: 10px; margin: 5px 0; }
-            .card { min-height: 120px; padding: 15px; }
+        @keyframes borderCycle {
+            0% { border-color: var(--neon-blue); box-shadow: 0 0 15px var(--neon-blue); }
+            50% { border-color: var(--neon-pink); box-shadow: 0 0 15px var(--neon-pink); }
+            100% { border-color: var(--neon-green); box-shadow: 0 0 15px var(--neon-green); }
         }
 
-        .footer-tag { margin-top: auto; padding: 40px 0 20px; font-size: 0.6rem; color: #333; letter-spacing: 5px; }
+        h1 { font-family: 'Syncopate', sans-serif; font-size: 1.5rem; letter-spacing: 2px; }
+
+        /* --- PORTAL GRID (From Screenshot) --- */
+        .portal-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            padding: 20px;
+            width: 100%;
+            max-width: 450px;
+        }
+
+        .portal-card {
+            background: rgba(12, 12, 20, 0.95);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-left: 5px solid var(--neon-blue);
+            padding: 20px;
+            border-radius: 10px;
+            text-decoration: none;
+            color: white;
+            transition: 0.3s;
+        }
+
+        .portal-card:hover { transform: translateX(10px); background: #111; }
+        .card-title { font-family: 'Syncopate'; font-size: 0.9rem; margin-bottom: 5px; }
+        .card-desc { font-size: 0.75rem; color: #888; line-height: 1.4; }
+
+        /* --- GAME ENGINE BOX --- */
+        .game-engine {
+            width: 95vw;
+            max-width: 400px;
+            background: #0a0a0f;
+            border: 2px solid #222;
+            border-radius: 15px;
+            padding: 15px;
+            margin-top: 20px;
+            position: relative;
+        }
+
+        .canvas-area {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 1/1.2;
+            background: #000;
+            border: 1px solid #333;
+            overflow: hidden;
+        }
+
+        canvas { width: 100%; height: 100%; }
+
+        .overlay {
+            position: absolute; inset: 0; background: rgba(0,0,0,0.9);
+            display: flex; flex-direction: column; align-items: center;
+            justify-content: center; z-index: 100; text-align: center;
+        }
+
+        .hidden { display: none !important; }
+
+        /* --- BUTTONS --- */
+        .btn {
+            padding: 12px 20px; margin: 5px; background: none;
+            border: 2px solid var(--neon-blue); color: var(--neon-blue);
+            font-family: 'Syncopate'; font-size: 0.65rem; cursor: pointer;
+        }
+        .btn-gold { border-color: var(--gold); color: var(--gold); }
+        .btn-danger { border-color: var(--danger); color: var(--danger); }
+
+        #hud {
+            display: flex; justify-content: space-between;
+            padding: 10px; font-size: 0.8rem; border-bottom: 1px solid #222;
+        }
     </style>
 </head>
 <body>
 
-    <header class="header-box">
+<header class="header-section">
+    <div class="color-shift-box">
         <h1>KAVISHFORTECH</h1>
-    </header>
+    </div>
+</header>
 
-    <main class="project-grid">
-        <a href="https://kavishfortech.github.io/subwaysurfers" class="card surfer">
-            <h2 style="color:var(--neon-blue)">NEON SURFER</h2>
-            <p>Pseudo-3D runner. Optimized for horizontal and vertical screen safety.</p>
-        </a>
+<div class="portal-grid">
+    <a href="https://kavishfortech.github.io/Ai/" class="portal-card" style="border-left-color: var(--neon-pink);">
+        <div class="card-title" style="color: var(--neon-pink);">NEURAL AI ARCHITECT</div>
+        <div class="card-desc">Advanced AI integration portal. Access the neural core system.</div>
+    </a>
 
-        <a href="https://kavishfortech.github.io/Kavishforgames" class="card arcade">
-            <h2 style="color:var(--neon-pink)">NEURAL ARCADE</h2>
-            <p>The primary game portal for all secondary arcade deployments.</p>
-        </a>
+    <a href="#" class="portal-card" style="border-left-color: var(--neon-blue);">
+        <div class="card-title" style="color: var(--neon-blue);">NEON SURFER</div>
+        <div class="card-desc">Pseudo-2D runner. Optimized for horizontal and vertical safety.</div>
+    </a>
+</div>
 
-        <a href="https://github.com/kavishfortech" class="card profile">
-            <h2 style="color:var(--neon-green)">GITHUB PROFILE</h2>
-            <p>Access source repositories, branch logs, and developer stats.</p>
-        </a>
-    </main>
+<div class="game-engine">
+    <div id="hud">
+        <span style="color:var(--neon-blue)">DIST: <span id="distVal">0</span></span>
+        <span style="color:var(--gold)">COINS: <span id="coinVal">0</span></span>
+    </div>
+    
+    <div class="canvas-area">
+        <canvas id="gameCanvas"></canvas>
 
-    <div class="footer-tag">SYSTEMS_HUB_V6.1 // KAVISHFORTECH.GITHUB.IO</div>
+        <div id="start-screen" class="overlay">
+            <h2 style="font-family:'Syncopate'; margin-bottom:15px;">SURFER V6</h2>
+            <button class="btn" onclick="Game.start()">START RUN</button>
+            <button class="btn btn-gold" onclick="Game.buyBoard()">BUY BOARD (50 COINS)</button>
+        </div>
 
+        <div id="death-screen" class="overlay hidden">
+            <h2 style="color:var(--danger); font-family:'Syncopate';">CRASHED</h2>
+            <p id="stats" style="margin:10px 0; font-size:0.8rem;"></p>
+            <button class="btn" onclick="Game.start()">REBOOT</button>
+            <button class="btn btn-gold" onclick="Game.buyBoard()">BUY BOARD (50 COINS)</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = 400; canvas.height = 500;
+
+    const Game = {
+        active: false, coins: 0, hasBoard: false, dist: 0,
+        obs: [], cns: [], speed: 6,
+        
+        start() {
+            this.active = true; this.dist = 0; this.speed = 6;
+            this.obs = []; this.cns = [];
+            document.getElementById('start-screen').classList.add('hidden');
+            document.getElementById('death-screen').classList.add('hidden');
+            this.player = { x: 50, y: 350, vy: 0, jmps: 0 };
+            this.loop();
+        },
+
+        buyBoard() {
+            if (this.coins >= 50 && !this.hasBoard) {
+                this.coins -= 50; this.hasBoard = true;
+                document.getElementById('coinVal').innerText = this.coins;
+                alert("SURFBOARD EQUIPPED!");
+            } else { alert(this.hasBoard ? "ALREADY EQUIPPED" : "NEED 50 COINS"); }
+        },
+
+        die() {
+            if (this.hasBoard) { this.hasBoard = false; this.obs = []; return; }
+            this.active = false;
+            document.getElementById('death-screen').classList.remove('hidden');
+            document.getElementById('stats').innerText = `DIST: ${Math.floor(this.dist)} | COINS: ${this.coins}`;
+        },
+
+        loop() {
+            if (!this.active) return;
+            ctx.clearRect(0,0,400,500);
+
+            // Ground
+            ctx.fillStyle = "#111"; ctx.fillRect(0, 400, 400, 100);
+            
+            // Player Logic
+            this.player.vy += 0.7; this.player.y += this.player.vy;
+            if (this.player.y > 350) { this.player.y = 350; this.player.vy = 0; this.player.jmps = 0; }
+            
+            ctx.fillStyle = this.hasBoard ? "#ff00ea" : "#00f2ff";
+            ctx.fillRect(this.player.x, this.player.y, 40, 50);
+            if(this.hasBoard) ctx.fillRect(this.player.x - 5, this.player.y + 45, 50, 5);
+
+            // Spawning
+            if (Math.random() < 0.02) this.obs.push({x: 420, y: 360, w: 30, h: 40});
+            if (Math.random() < 0.03) this.cns.push({x: 420, y: 250 + Math.random()*100});
+
+            // Obstacles
+            this.obs.forEach((o, i) => {
+                o.x -= this.speed;
+                ctx.fillStyle = "red"; ctx.fillRect(o.x, o.y, o.w, o.h);
+                if (this.player.x < o.x + o.w && this.player.x + 40 > o.x && 
+                    this.player.y < o.y + o.h && this.player.y + 50 > o.y) {
+                    this.obs.splice(i, 1); this.die();
+                }
+            });
+
+            // Coins
+            this.cns.forEach((c, i) => {
+                c.x -= this.speed;
+                ctx.fillStyle = "gold"; ctx.beginPath(); ctx.arc(c.x, c.y, 10, 0, 7); ctx.fill();
+                if (Math.hypot(this.player.x+20 - c.x, this.player.y+25 - c.y) < 30) {
+                    this.coins += 5; this.cns.splice(i, 1);
+                    document.getElementById('coinVal').innerText = this.coins;
+                }
+            });
+
+            this.dist += 0.1; this.speed += 0.001;
+            document.getElementById('distVal').innerText = Math.floor(this.dist);
+            requestAnimationFrame(() => this.loop());
+        }
+    };
+
+    window.addEventListener('touchstart', () => { 
+        if(Game.active && Game.player.jmps < 2) { 
+            Game.player.vy = -12; Game.player.jmps++; 
+        } 
+    });
+
+    window.addEventListener('keydown', (e) => { 
+        if((e.code === 'Space' || e.code === 'ArrowUp') && Game.active && Game.player.jmps < 2) { 
+            Game.player.vy = -12; Game.player.jmps++; 
+        } 
+    });
+</script>
 </body>
 </html>
