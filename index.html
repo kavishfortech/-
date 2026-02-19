@@ -31,6 +31,7 @@
             flex-direction: column;
             align-items: center;
             overflow-x: hidden;
+            padding-bottom: 40px; /* Space for the bottom info */
         }
 
         /* --- TRADEMARK BOX --- */
@@ -90,11 +91,10 @@
             color: white;
             display: block;
             border-left: 5px solid transparent;
-            transition: background 0.2s ease; /* Faster transition for mobile */
+            transition: background 0.2s ease;
         }
 
-        /* --- 🔥 THE LAPTOP-ONLY HOVER FIX 🔥 --- */
-        /* This prevents mobile browsers from "sticking" on the first click */
+        /* --- LAPTOP-ONLY HOVER FIX --- */
         @media (hover: hover) and (pointer: fine) {
             .portal-card:hover {
                 transform: scale(1.03) translateX(10px);
@@ -112,7 +112,7 @@
         .green-side { border-left-color: var(--neon-green); }
         .gold-side { border-left-color: #ffd700; }
 
-        /* --- PROFILE FOOTER (WITH image.jpg) --- */
+        /* --- PROFILE FOOTER --- */
         .profile-footer {
             width: 100%;
             max-width: 500px;
@@ -130,20 +130,24 @@
             border: 2px solid var(--neon-blue);
             background: #111;
             object-fit: cover;
-            /* Reference to your 300kb image */
-            box-shadow: 0 0 15px rgba(0, 242, 255, 0.2);
         }
 
         .profile-info h2 { font-family: 'Syncopate'; font-size: 1.1rem; color: #fff; margin-bottom: 5px; }
         .profile-info p { font-size: 0.85rem; color: var(--neon-blue); font-weight: 800; }
 
-        /* --- DEVICE INFO --- */
-        #device-info {
+        /* --- FOOTER INFO BOXES (DEVICE & VERSION) --- */
+        .info-container {
+            text-align: center;
+            margin-top: auto;
+            padding: 20px;
+        }
+
+        .small-info-text {
             font-size: 0.6rem;
             color: #555;
-            margin: 20px 0;
             text-transform: uppercase;
             letter-spacing: 2px;
+            margin-bottom: 5px;
         }
     </style>
 </head>
@@ -158,7 +162,7 @@
     <main class="grid-container">
         <a href="https://kavishfortech.github.io/subwaysurfers/" class="portal-card blue-side">
             <div class="card-title" style="color: var(--neon-blue);">2D NEON SURFER</div>
-            <div class="card-desc">Instant-response high-speed runner. Optimized for touch systems.</div>
+            <div class="card-desc">High-speed side-scrolling runner. Optimized for touch systems.</div>
         </a>
 
         <a href="https://kavishfortech.github.io/Kavishforgames" class="portal-card pink-side">
@@ -185,14 +189,17 @@
         </div>
     </footer>
 
-    <div id="device-info">SYSTEM SCANNING...</div>
+    <div class="info-container">
+        <div id="device-info" class="small-info-text">SYSTEM SCANNING...</div>
+        <div class="small-info-text">CORE VERSION: 12.0.4 [STABLE]</div>
+    </div>
 
     <script>
         function detectSystem() {
             const agent = navigator.userAgent;
-            let sys = "Generic Terminal";
+            let sys = "Standard Node";
             if (/Android/i.test(agent)) sys = "Android Mobile";
-            else if (/iPhone|iPad/i.test(agent)) sys = "iOS Mobile";
+            else if (/iPhone|iPad|iPod/i.test(agent)) sys = "iOS Mobile";
             else if (/Windows/i.test(agent)) sys = "Windows Desktop";
             else if (/Mac/i.test(agent)) sys = "MacOS Desktop";
             
