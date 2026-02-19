@@ -14,7 +14,7 @@
             --bg-black: #050508;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 
         body {
             font-family: 'JetBrains Mono', monospace;
@@ -27,7 +27,7 @@
             overflow-x: hidden;
         }
 
-        /* --- TRADEMARK BOX: KAVISH'S WEBSITE --- */
+        /* --- TRADEMARK BOX --- */
         .header-section {
             width: 100%;
             padding: 40px 15px;
@@ -40,7 +40,7 @@
             border: 4px solid var(--neon-blue);
             border-radius: 12px;
             text-align: center;
-            background: rgba(0, 0, 0, 0.50); /* Opacity 0.50 as requested */
+            background: rgba(0, 0, 0, 0.50);
             animation: borderCycle 8s infinite alternate;
             width: 100%;
             max-width: 600px;
@@ -65,7 +65,7 @@
             100% { color: var(--neon-green); text-shadow: 0 0 15px var(--neon-green); }
         }
 
-        /* --- PORTAL GRID & HOVER ANIMATIONS --- */
+        /* --- PORTAL CARDS --- */
         .grid-container {
             display: flex;
             flex-direction: column;
@@ -76,23 +76,27 @@
         }
 
         .portal-card {
-            background: rgba(15, 15, 25, 0.50); /* Opacity 0.50 as requested */
+            background: rgba(15, 15, 25, 0.50);
             border: 1px solid rgba(255,255,255,0.1);
             padding: 20px;
             border-radius: 12px;
             text-decoration: none;
             color: white;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
             overflow: hidden;
             border-left: 5px solid transparent;
+            /* Transition kept for smooth color changes, but movement is for laptop only */
+            transition: background 0.3s, border 0.3s;
         }
 
-        /* Desktop Hover Animation */
-        .portal-card:hover {
-            transform: scale(1.03) translateX(10px);
-            background: rgba(26, 26, 46, 0.8);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+        /* --- 🔥 THE LAPTOP-ONLY HOVER FIX 🔥 --- */
+        @media (hover: hover) {
+            .portal-card:hover {
+                transform: scale(1.03) translateX(10px);
+                background: rgba(26, 26, 46, 0.8);
+                box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+                transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            }
         }
 
         .card-title { font-family: 'Syncopate'; font-size: 0.9rem; margin-bottom: 5px; }
@@ -103,7 +107,7 @@
         .green-side { border-left-color: var(--neon-green); }
         .gold-side { border-left-color: #ffd700; }
 
-        /* --- PROFILE FOOTER (PHOTO LEFT, NAME RIGHT) --- */
+        /* --- PROFILE FOOTER --- */
         .profile-footer {
             width: 100%;
             max-width: 500px;
@@ -181,7 +185,7 @@
             const agent = navigator.userAgent;
             let sys = "Standard Node";
             if (/Android/i.test(agent)) sys = "Android Mobile";
-            else if (/iPhone|iPad/i.test(agent)) sys = "iOS Mobile";
+            else if (/iPhone|iPad|iPod/i.test(agent)) sys = "iOS Mobile";
             else if (/Windows/i.test(agent)) sys = "Windows Desktop";
             else if (/Mac/i.test(agent)) sys = "MacOS Desktop";
             
