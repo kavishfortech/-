@@ -15,8 +15,7 @@
         }
 
         * { 
-            box-sizing: border-box; 
-            margin: 0; padding: 0; 
+            box-sizing: border-box; margin: 0; padding: 0; 
             -webkit-tap-highlight-color: transparent;
             touch-action: manipulation; 
         }
@@ -30,142 +29,71 @@
             flex-direction: column;
             align-items: center;
             overflow-x: hidden;
-            padding-bottom: 20px;
         }
 
         /* --- TRADEMARK BOX --- */
-        .header-section {
-            width: 100%;
-            padding: 40px 15px;
-            display: flex;
-            justify-content: center;
-        }
-
+        .header-section { width: 100%; padding: 30px 15px 10px 15px; display: flex; justify-content: center; }
         .color-shift-box {
-            padding: 25px 35px;
-            border: 4px solid var(--neon-blue);
-            border-radius: 12px;
-            text-align: center;
-            background: rgba(0, 0, 0, 0.50);
-            animation: borderCycle 8s infinite alternate;
-            width: 100%;
-            max-width: 600px;
+            padding: 20px; border: 4px solid var(--neon-blue); border-radius: 12px;
+            text-align: center; background: rgba(0, 0, 0, 0.50);
+            animation: borderCycle 8s infinite alternate; width: 100%; max-width: 600px;
         }
-
         @keyframes borderCycle {
-            0% { border-color: var(--neon-blue); box-shadow: 0 0 30px var(--neon-blue); }
-            50% { border-color: var(--neon-pink); box-shadow: 0 0 30px var(--neon-pink); }
-            100% { border-color: var(--neon-green); box-shadow: 0 0 30px var(--neon-green); }
+            0% { border-color: var(--neon-blue); box-shadow: 0 0 20px var(--neon-blue); }
+            50% { border-color: var(--neon-pink); box-shadow: 0 0 20px var(--neon-pink); }
+            100% { border-color: var(--neon-green); box-shadow: 0 0 20px var(--neon-green); }
         }
+        .color-shift-box h1 { font-family: 'Syncopate'; font-size: 1.2rem; animation: textCycle 8s infinite alternate; }
+        @keyframes textCycle { 0% { color: var(--neon-blue); } 50% { color: var(--neon-pink); } 100% { color: var(--neon-green); } }
 
-        .color-shift-box h1 {
-            font-family: 'Syncopate', sans-serif;
-            font-size: clamp(1.1rem, 5vw, 2.2rem);
-            animation: textCycle 8s infinite alternate;
-            text-transform: uppercase;
+        /* --- MINI GAME SECTION --- */
+        #game-container {
+            width: 90%; max-width: 400px; height: 100px; 
+            background: #111; border: 1px solid #333; margin: 10px 0;
+            position: relative; overflow: hidden; border-radius: 8px;
         }
-
-        @keyframes textCycle {
-            0% { color: var(--neon-blue); text-shadow: 0 0 15px var(--neon-blue); }
-            50% { color: var(--neon-pink); text-shadow: 0 0 15px var(--neon-pink); }
-            100% { color: var(--neon-green); text-shadow: 0 0 15px var(--neon-green); }
-        }
+        #player { width: 20px; height: 20px; background: var(--neon-blue); position: absolute; bottom: 10px; left: 10px; border-radius: 3px; }
+        .enemy { width: 15px; height: 15px; background: var(--neon-pink); position: absolute; border-radius: 50%; }
+        #fps-counter { color: var(--neon-green); font-weight: bold; margin: 5px; font-size: 14px; }
 
         /* --- PORTAL CARDS --- */
-        .grid-container {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            padding: 20px;
-            width: 100%;
-            max-width: 500px;
+        .grid-container { display: flex; flex-direction: column; gap: 10px; padding: 15px; width: 100%; max-width: 500px; }
+        .portal-card {
+            background: rgba(15, 15, 25, 0.50); border: 1px solid rgba(255,255,255,0.1);
+            padding: 15px; border-radius: 10px; text-decoration: none; color: white;
+            display: block; border-left: 5px solid transparent;
+            /* Instant Response Setup */
+            transition: background 0.1s;
         }
 
-        .portal-card {
-            background: rgba(15, 15, 25, 0.50);
-            border: 1px solid rgba(255,255,255,0.1);
-            padding: 20px;
-            border-radius: 12px;
-            text-decoration: none;
-            color: white;
-            display: block;
-            border-left: 5px solid transparent;
-        }
+        /* GitHub Specific Instant Removal */
+        .green-side { border-left-color: var(--neon-green); transition: none !important; }
 
         @media (hover: hover) and (pointer: fine) {
             .portal-card:hover {
-                transform: scale(1.03) translateX(10px);
+                transform: scale(1.02) translateX(8px);
                 background: rgba(26, 26, 46, 0.8);
-                box-shadow: 0 10px 20px rgba(0,0,0,0.5);
-                transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             }
         }
 
-        .card-title { font-family: 'Syncopate'; font-size: 0.85rem; margin-bottom: 5px; }
-        .card-desc { font-size: 0.7rem; color: #888; line-height: 1.4; }
+        .card-title { font-family: 'Syncopate'; font-size: 0.8rem; margin-bottom: 3px; }
+        .card-desc { font-size: 0.65rem; color: #777; }
 
         .blue-side { border-left-color: var(--neon-blue); }
         .pink-side { border-left-color: var(--neon-pink); }
-        .green-side { border-left-color: var(--neon-green); }
         .gold-side { border-left-color: #ffd700; }
 
-        /* --- HORIZONTAL ID CARD FOOTER --- */
+        /* --- ID CARD --- */
         .id-card-footer {
-            width: 90%;
-            max-width: 400px;
-            background: rgba(20, 20, 30, 0.6);
-            border: 1px solid rgba(0, 242, 255, 0.3);
-            border-radius: 15px;
-            padding: 15px;
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            margin-top: 30px;
-            margin-bottom: 20px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            width: 90%; max-width: 400px; background: rgba(20, 20, 30, 0.6);
+            border: 1px solid rgba(0, 242, 255, 0.3); border-radius: 12px;
+            padding: 12px; display: flex; align-items: center; gap: 15px; margin: 20px 0;
         }
+        .id-photo { width: 60px; height: 60px; border-radius: 8px; border: 2px solid var(--neon-blue); object-fit: cover; }
+        .id-name { font-family: 'Syncopate'; font-size: 0.8rem; }
+        .id-rank { font-size: 0.65rem; color: var(--neon-blue); font-weight: 800; }
 
-        .id-photo {
-            width: 70px;
-            height: 70px;
-            border-radius: 10px;
-            border: 2px solid var(--neon-blue);
-            object-fit: cover;
-        }
-
-        .id-content {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .id-name {
-            font-family: 'Syncopate';
-            font-size: 0.9rem;
-            color: #fff;
-            letter-spacing: 1px;
-        }
-
-        .id-rank {
-            font-size: 0.7rem;
-            color: var(--neon-blue);
-            font-weight: 800;
-            margin-top: 4px;
-            text-transform: uppercase;
-        }
-
-        /* --- INFO BOXES --- */
-        .info-container {
-            text-align: center;
-            padding: 10px;
-        }
-
-        .small-info-text {
-            font-size: 0.55rem;
-            color: #444;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 3px;
-        }
+        .small-info-text { font-size: 0.55rem; color: #444; text-transform: uppercase; letter-spacing: 2px; }
     </style>
 </head>
 <body>
@@ -176,53 +104,122 @@
         </div>
     </header>
 
+    <div id="fps-counter">FPS: --</div>
+
+    <div id="game-container" onclick="jump()">
+        <div id="player"></div>
+        <p style="position:absolute; top:5px; right:10px; font-size:8px; color:#444;">TAP TO JUMP</p>
+    </div>
+
     <main class="grid-container">
         <a href="https://kavishfortech.github.io/subwaysurfers/" class="portal-card blue-side">
             <div class="card-title" style="color: var(--neon-blue);">2D NEON SURFER</div>
-            <div class="card-desc">Instant-access high-speed runner. Zero touch delay.</div>
+            <div class="card-desc">Instant access high-speed runner.</div>
         </a>
 
         <a href="https://kavishfortech.github.io/Kavishforgames" class="portal-card pink-side">
             <div class="card-title" style="color: var(--neon-pink);">NEURAL ARCADE</div>
-            <div class="card-desc">The master game vault. Direct system link.</div>
+            <div class="card-desc">Master game vault system.</div>
         </a>
 
         <a href="https://kavishfortech.github.io/Ai" class="portal-card gold-side">
             <div class="card-title" style="color: #ffd700;">AI CHAT BOX</div>
-            <div class="card-desc">Neural interface portal. Communicate with AI core.</div>
+            <div class="card-desc">Neural interface portal.</div>
         </a>
 
         <a href="https://github.com/kavishfortech" class="portal-card green-side">
             <div class="card-title" style="color: var(--neon-green);">GITHUB PROFILE</div>
-            <div class="card-desc">Source code repository. Dev: kavishfortech.</div>
+            <div class="card-desc">No-delay developer source link.</div>
         </a>
     </main>
 
     <div class="id-card-footer">
-        <img src="https://i.ibb.co/CKY0rzSR/image.jpg" alt="Kavish Shah" class="id-photo" onerror="this.src='https://via.placeholder.com/70?text=Kavish'">
+        <img src="https://i.ibb.co/CKY0rzSR/image.jpg" alt="Kavish" class="id-photo" onerror="this.src='https://via.placeholder.com/60'">
         <div class="id-content">
             <div class="id-name">KAVISH SHAH</div>
             <div class="id-rank">6TH GRADER | ARCHITECT</div>
         </div>
     </div>
 
-    <div class="info-container">
-        <div id="device-info" class="small-info-text">SYSTEM SCANNING...</div>
-        <div class="small-info-text">CORE VERSION: 14.0.0 [STABLE]</div>
-    </div>
+    <div class="small-info-text" id="device-info">DETECTING...</div>
+    <div class="small-info-text">CORE VERSION: 15.0.0</div>
 
     <script>
-        function detectSystem() {
-            const agent = navigator.userAgent;
-            let sys = "Terminal";
-            if (/Android/i.test(agent)) sys = "Android Node";
-            else if (/iPhone|iPad|iPod/i.test(agent)) sys = "iOS Node";
-            else if (/Windows/i.test(agent)) sys = "Windows Node";
-            else if (/Mac/i.test(agent)) sys = "MacOS Node";
-            
-            document.getElementById('device-info').innerText = `NODE: ${sys}`;
+        // --- FPS & DYNAMIC DELAY LOGIC ---
+        let lastCalledTime;
+        let fps;
+        let dynamicDelay = 0.1;
+
+        function updateFPS() {
+            if(!lastCalledTime) {
+                lastCalledTime = Date.now();
+                fps = 0;
+            } else {
+                let delta = (Date.now() - lastCalledTime)/1000;
+                lastCalledTime = Date.now();
+                fps = Math.round(1/delta);
+                // Adjust transition speed based on FPS (higher FPS = smoother/faster)
+                dynamicDelay = (1/fps).toFixed(2);
+                document.getElementById('fps-counter').innerText = `FPS: ${fps}`;
+                
+                // Set the delay globally to website boxes
+                document.querySelectorAll('.portal-card').forEach(card => {
+                    card.style.transitionDuration = `${dynamicDelay}s`;
+                });
+            }
+            requestAnimationFrame(updateFPS);
         }
-        window.onload = detectSystem;
+        requestAnimationFrame(updateFPS);
+
+        // --- MINI GAME LOGIC ---
+        const player = document.getElementById('player');
+        let isJumping = false;
+
+        function jump() {
+            if(isJumping) return;
+            isJumping = true;
+            let pos = 10;
+            let timer = setInterval(() => {
+                if(pos >= 60) {
+                    clearInterval(timer);
+                    let downTimer = setInterval(() => {
+                        if(pos <= 10) {
+                            clearInterval(downTimer);
+                            isJumping = false;
+                        }
+                        pos -= 2;
+                        player.style.bottom = pos + 'px';
+                    }, 20);
+                }
+                pos += 3;
+                player.style.bottom = pos + 'px';
+            }, 20);
+        }
+
+        function createEnemy() {
+            const game = document.getElementById('game-container');
+            const enemy = document.createElement('div');
+            enemy.classList.add('enemy');
+            enemy.style.right = '-20px';
+            enemy.style.bottom = '10px';
+            game.appendChild(enemy);
+
+            let enemyPos = -20;
+            let enemyTimer = setInterval(() => {
+                enemyPos += 3;
+                enemy.style.right = enemyPos + 'px';
+                if(enemyPos > 400) {
+                    clearInterval(enemyTimer);
+                    enemy.remove();
+                }
+            }, 20);
+            setTimeout(createEnemy, Math.random() * 2000 + 1000);
+        }
+        createEnemy();
+
+        // Device Detect
+        const agent = navigator.userAgent;
+        document.getElementById('device-info').innerText = /Android|iPhone|iPad/i.test(agent) ? "NODE: MOBILE" : "NODE: DESKTOP";
     </script>
 </body>
 </html>
