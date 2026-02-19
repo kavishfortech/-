@@ -14,7 +14,13 @@
             --bg-black: #050508;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+        /* Essential fix for instant mobile tapping */
+        * { 
+            box-sizing: border-box; 
+            margin: 0; padding: 0; 
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation; 
+        }
 
         body {
             font-family: 'JetBrains Mono', monospace;
@@ -82,15 +88,14 @@
             border-radius: 12px;
             text-decoration: none;
             color: white;
-            position: relative;
-            overflow: hidden;
+            display: block;
             border-left: 5px solid transparent;
-            /* Transition kept for smooth color changes, but movement is for laptop only */
-            transition: background 0.3s, border 0.3s;
+            transition: background 0.2s ease; /* Faster transition for mobile */
         }
 
         /* --- 🔥 THE LAPTOP-ONLY HOVER FIX 🔥 --- */
-        @media (hover: hover) {
+        /* This prevents mobile browsers from "sticking" on the first click */
+        @media (hover: hover) and (pointer: fine) {
             .portal-card:hover {
                 transform: scale(1.03) translateX(10px);
                 background: rgba(26, 26, 46, 0.8);
@@ -107,7 +112,7 @@
         .green-side { border-left-color: var(--neon-green); }
         .gold-side { border-left-color: #ffd700; }
 
-        /* --- PROFILE FOOTER --- */
+        /* --- PROFILE FOOTER (WITH image.jpg) --- */
         .profile-footer {
             width: 100%;
             max-width: 500px;
@@ -125,6 +130,8 @@
             border: 2px solid var(--neon-blue);
             background: #111;
             object-fit: cover;
+            /* Reference to your 300kb image */
+            box-shadow: 0 0 15px rgba(0, 242, 255, 0.2);
         }
 
         .profile-info h2 { font-family: 'Syncopate'; font-size: 1.1rem; color: #fff; margin-bottom: 5px; }
@@ -151,27 +158,27 @@
     <main class="grid-container">
         <a href="https://kavishfortech.github.io/subwaysurfers/" class="portal-card blue-side">
             <div class="card-title" style="color: var(--neon-blue);">2D NEON SURFER</div>
-            <div class="card-desc">High-speed side-scrolling runner. Optimized for elite system performance.</div>
+            <div class="card-desc">Instant-response high-speed runner. Optimized for touch systems.</div>
         </a>
 
         <a href="https://kavishfortech.github.io/Kavishforgames" class="portal-card pink-side">
             <div class="card-title" style="color: var(--neon-pink);">NEURAL ARCADE</div>
-            <div class="card-desc">Access the primary game vault for all Kavishforgames deployments.</div>
+            <div class="card-desc">The master game hub. Direct link to all arcade deployments.</div>
         </a>
 
         <a href="https://kavishfortech.github.io/Ai" class="portal-card gold-side">
             <div class="card-title" style="color: #ffd700;">AI CHAT BOX</div>
-            <div class="card-desc">The neural interface. Communicate directly with the AI architecture.</div>
+            <div class="card-desc">Neural interface portal. Communicate with the Architect's AI.</div>
         </a>
 
         <a href="https://github.com/kavishfortech" class="portal-card green-side">
             <div class="card-title" style="color: var(--neon-green);">GITHUB PROFILE</div>
-            <div class="card-desc">Dev username: kavishfortech. Explore source code and project branches.</div>
+            <div class="card-desc">Source code repository. User: kavishfortech.</div>
         </a>
     </main>
 
     <footer class="profile-footer">
-        <img src="https://via.placeholder.com/90" alt="Kavish" class="profile-photo">
+        <img src="image.jpg" alt="Kavish Shah" class="profile-photo">
         <div class="profile-info">
             <h2>KAVISH SHAH</h2>
             <p>6TH GRADER | ARCHITECT</p>
@@ -183,9 +190,9 @@
     <script>
         function detectSystem() {
             const agent = navigator.userAgent;
-            let sys = "Standard Node";
+            let sys = "Generic Terminal";
             if (/Android/i.test(agent)) sys = "Android Mobile";
-            else if (/iPhone|iPad|iPod/i.test(agent)) sys = "iOS Mobile";
+            else if (/iPhone|iPad/i.test(agent)) sys = "iOS Mobile";
             else if (/Windows/i.test(agent)) sys = "Windows Desktop";
             else if (/Mac/i.test(agent)) sys = "MacOS Desktop";
             
