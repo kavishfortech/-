@@ -25,42 +25,38 @@
             flex-direction: column;
             align-items: center;
             overflow-x: hidden;
-            overflow-y: auto;
         }
 
-        /* --- RESTORED COLOR CHANGING TRADEMARK BOX --- */
+        /* --- TRADEMARK BOX: KAVISH'S WEBSITE --- */
         .header-section {
             width: 100%;
             padding: 40px 15px;
             display: flex;
             justify-content: center;
-            background: #000;
         }
 
         .color-shift-box {
-            padding: 30px 40px;
+            padding: 25px 35px;
             border: 4px solid var(--neon-blue);
             border-radius: 12px;
             text-align: center;
-            background: rgba(0, 0, 0, 0.9);
-            /* Border Cycle Restored */
+            background: rgba(0, 0, 0, 0.50); /* Opacity 0.50 as requested */
             animation: borderCycle 8s infinite alternate;
             width: 100%;
-            max-width: 650px;
+            max-width: 600px;
         }
 
         @keyframes borderCycle {
-            0% { border-color: var(--neon-blue); box-shadow: 0 0 35px var(--neon-blue); }
-            50% { border-color: var(--neon-pink); box-shadow: 0 0 35px var(--neon-pink); }
-            100% { border-color: var(--neon-green); box-shadow: 0 0 35px var(--neon-green); }
+            0% { border-color: var(--neon-blue); box-shadow: 0 0 30px var(--neon-blue); }
+            50% { border-color: var(--neon-pink); box-shadow: 0 0 30px var(--neon-pink); }
+            100% { border-color: var(--neon-green); box-shadow: 0 0 30px var(--neon-green); }
         }
 
         .color-shift-box h1 {
             font-family: 'Syncopate', sans-serif;
-            font-size: clamp(1.8rem, 7vw, 3rem);
-            letter-spacing: -1px;
-            /* Text Color Cycle Restored */
+            font-size: clamp(1.2rem, 5vw, 2.2rem);
             animation: textCycle 8s infinite alternate;
+            text-transform: uppercase;
         }
 
         @keyframes textCycle {
@@ -69,52 +65,74 @@
             100% { color: var(--neon-green); text-shadow: 0 0 15px var(--neon-green); }
         }
 
-        /* --- HUB CARD LAYOUT --- */
+        /* --- PORTAL GRID & HOVER ANIMATIONS --- */
         .grid-container {
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 15px;
             padding: 20px;
             width: 100%;
             max-width: 500px;
         }
 
         .portal-card {
-            background: rgba(12, 12, 20, 0.98);
-            border: 1px solid rgba(255,255,255,0.05);
-            padding: 25px;
-            border-radius: 15px;
+            background: rgba(15, 15, 25, 0.50); /* Opacity 0.50 as requested */
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 12px;
             text-decoration: none;
             color: white;
-            transition: 0.3s;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
             overflow: hidden;
+            border-left: 5px solid transparent;
         }
 
-        .portal-card::before {
-            content: '';
-            position: absolute;
-            left: 0; top: 0; bottom: 0;
-            width: 5px;
-        }
-
+        /* Desktop Hover Animation */
         .portal-card:hover {
-            transform: scale(1.02);
-            background: #111;
+            transform: scale(1.03) translateX(10px);
+            background: rgba(26, 26, 46, 0.8);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
         }
 
-        .card-title { font-family: 'Syncopate'; font-size: 1rem; margin-bottom: 8px; text-transform: uppercase; }
-        .card-desc { font-size: 0.8rem; color: #888; line-height: 1.5; }
+        .card-title { font-family: 'Syncopate'; font-size: 0.9rem; margin-bottom: 5px; }
+        .card-desc { font-size: 0.75rem; color: #888; line-height: 1.4; }
 
-        /* Card Colors */
-        .blue-side::before { background: var(--neon-blue); }
-        .pink-side::before { background: var(--neon-pink); }
-        .green-side::before { background: var(--neon-green); }
+        .blue-side { border-left-color: var(--neon-blue); }
+        .pink-side { border-left-color: var(--neon-pink); }
+        .green-side { border-left-color: var(--neon-green); }
+        .gold-side { border-left-color: #ffd700; }
 
-        .sys-log { 
-            width: 90%; max-width: 500px; background: #000; 
-            padding: 15px; margin: 20px 0; border-radius: 10px; 
-            color: var(--neon-green); font-size: 0.7rem; border: 1px solid #111; 
+        /* --- PROFILE FOOTER (PHOTO LEFT, NAME RIGHT) --- */
+        .profile-footer {
+            width: 100%;
+            max-width: 500px;
+            padding: 40px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 25px;
+        }
+
+        .profile-photo {
+            width: 90px;
+            height: 90px;
+            border-radius: 20px;
+            border: 2px solid var(--neon-blue);
+            background: #111;
+            object-fit: cover;
+        }
+
+        .profile-info h2 { font-family: 'Syncopate'; font-size: 1.1rem; color: #fff; margin-bottom: 5px; }
+        .profile-info p { font-size: 0.85rem; color: var(--neon-blue); font-weight: 800; }
+
+        /* --- DEVICE INFO --- */
+        #device-info {
+            font-size: 0.6rem;
+            color: #555;
+            margin: 20px 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
     </style>
 </head>
@@ -122,29 +140,54 @@
 
     <header class="header-section">
         <div class="color-shift-box">
-            <h1>KAVISHFORTECH</h1>
-            <p style="color: #666; font-size: 0.6rem; margin-top: 10px; letter-spacing: 5px;">COMMANDER HUB</p>
+            <h1>Kavish’s website</h1>
         </div>
     </header>
 
     <main class="grid-container">
         <a href="https://kavishfortech.github.io/subwaysurfers/" class="portal-card blue-side">
-            <div class="card-title" style="color: var(--neon-blue);">NEON SURFER</div>
-            <div class="card-desc">Pseudo-3D runner. Optimized for high-speed mobile and desktop performance.</div>
+            <div class="card-title" style="color: var(--neon-blue);">2D NEON SURFER</div>
+            <div class="card-desc">High-speed side-scrolling runner. Optimized for elite system performance.</div>
         </a>
 
-        <a href="https://kavishfortech.github.io/Ai/" class="portal-card pink-side">
+        <a href="https://kavishfortech.github.io/Kavishforgames" class="portal-card pink-side">
             <div class="card-title" style="color: var(--neon-pink);">NEURAL ARCADE</div>
-            <div class="card-desc">The primary AI game portal for all secondary arcade deployments and neural testing.</div>
+            <div class="card-desc">Access the primary game vault for all Kavishforgames deployments.</div>
+        </a>
+
+        <a href="https://kavishfortech.github.io/Ai" class="portal-card gold-side">
+            <div class="card-title" style="color: #ffd700;">AI CHAT BOX</div>
+            <div class="card-desc">The neural interface. Communicate directly with the AI architecture.</div>
         </a>
 
         <a href="https://github.com/kavishfortech" class="portal-card green-side">
             <div class="card-title" style="color: var(--neon-green);">GITHUB PROFILE</div>
-            <div class="card-desc">Access source repositories, branch logs, and developer system stats.</div>
+            <div class="card-desc">Dev username: kavishfortech. Explore source code and project branches.</div>
         </a>
     </main>
 
-    <div class="sys-log">> SYSTEM READY...<br>> ALL PORTALS ACTIVE...<br>> REDIRECTS ENABLED...</div>
+    <footer class="profile-footer">
+        <img src="https://via.placeholder.com/90" alt="Kavish" class="profile-photo">
+        <div class="profile-info">
+            <h2>KAVISH SHAH</h2>
+            <p>6TH GRADER | ARCHITECT</p>
+        </div>
+    </footer>
 
+    <div id="device-info">SYSTEM SCANNING...</div>
+
+    <script>
+        function detectSystem() {
+            const agent = navigator.userAgent;
+            let sys = "Standard Node";
+            if (/Android/i.test(agent)) sys = "Android Mobile";
+            else if (/iPhone|iPad/i.test(agent)) sys = "iOS Mobile";
+            else if (/Windows/i.test(agent)) sys = "Windows Desktop";
+            else if (/Mac/i.test(agent)) sys = "MacOS Desktop";
+            
+            document.getElementById('device-info').innerText = `NODE DETECTED: ${sys}`;
+        }
+        window.onload = detectSystem;
+    </script>
 </body>
 </html>
