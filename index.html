@@ -32,11 +32,11 @@
             padding-bottom: 40px;
         }
 
-        /* --- TRADEMARK HEADER --- */
+        /* --- TRADEMARK HEADER (SOLID) --- */
         .header-section { width: 100%; padding: 40px 15px 10px 15px; display: flex; justify-content: center; }
         .color-shift-box {
             padding: 25px 35px; border: 4px solid var(--neon-blue); border-radius: 12px;
-            text-align: center; background: rgba(0, 0, 0, 0.50);
+            text-align: center; background: #000;
             animation: borderCycle 8s infinite alternate; width: 100%; max-width: 500px;
         }
         @keyframes borderCycle {
@@ -58,12 +58,14 @@
 
         #fps-display { color: var(--neon-green); font-family: 'Syncopate'; font-size: 14px; margin: 15px 0; }
 
-        /* --- UNIFORM GRID --- */
+        /* --- UNIFORM GRID WITH TRANSPARENCY --- */
         .grid-container { display: flex; flex-direction: column; gap: 15px; padding: 20px; width: 100%; max-width: 500px; }
 
         .portal-card, .id-card-footer {
-            background: rgba(15, 15, 25, 0.50); 
-            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(255, 255, 255, 0.05); 
+            backdrop-filter: blur(10px); 
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             padding: 20px; 
             border-radius: 12px; 
             text-decoration: none; 
@@ -72,30 +74,29 @@
             flex-direction: column;
             justify-content: center;
             border-left: 5px solid transparent;
-            height: 110px; /* Uniform height */
-            transition: background 0.2s ease, transform 0.4s ease;
+            height: 110px; 
+            transition: all 0.3s ease;
         }
 
         .id-card-footer { flex-direction: row; align-items: center; gap: 20px; border-left-color: var(--neon-blue); cursor: pointer; }
         .green-side { border-left-color: var(--neon-green); transition: none !important; }
 
         @media (hover: hover) and (pointer: fine) {
-            .portal-card:hover { transform: scale(1.03) translateX(10px); background: rgba(26, 26, 46, 0.8); }
+            .portal-card:hover { transform: scale(1.03) translateX(10px); background: rgba(255, 255, 255, 0.12); }
             .verified-badge { display: inline-block !important; }
         }
 
         .card-title { font-family: 'Syncopate'; font-size: 0.85rem; margin-bottom: 5px; display: flex; align-items: center; gap: 8px; }
-        .card-desc { font-size: 0.7rem; color: #888; line-height: 1.4; }
+        .card-desc { font-size: 0.7rem; color: #bbb; line-height: 1.4; }
         .verified-badge { display: none; color: var(--neon-blue); font-size: 0.9rem; }
 
         .blue-side { border-left-color: var(--neon-blue); }
         .pink-side { border-left-color: var(--neon-pink); }
         .gold-side { border-left-color: #ffd700; }
 
-        /* --- BIGGER PHOTO BOX --- */
+        /* --- PHOTO BOX --- */
         .photo-wrapper {
-            width: 85px; /* Bigger photo box */
-            height: 85px;
+            width: 85px; height: 85px;
             border: 2px solid var(--neon-blue);
             border-radius: 10px;
             overflow: hidden;
@@ -104,20 +105,15 @@
             justify-content: center;
             box-shadow: 0 0 15px rgba(0, 242, 255, 0.2);
             flex-shrink: 0;
+            background: rgba(0,0,0,0.5);
         }
-
-        .id-photo {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+        .id-photo { width: 100%; height: 100%; object-fit: cover; }
 
         .id-content { flex: 1; }
         .id-name { font-family: 'Syncopate'; font-size: 0.9rem; color: #fff; margin-bottom: 2px; }
         .id-rank { font-size: 0.65rem; color: var(--neon-blue); font-weight: 800; text-transform: uppercase; }
 
-        /* iPad Expand logic */
-        .id-expanded { transform: scale(1.1); height: 130px !important; }
+        .id-expanded { transform: scale(1.1); height: 130px !important; background: rgba(255,255,255,0.15); }
 
         .info-container { text-align: center; padding: 20px; }
         .small-info-text { font-size: 0.6rem; color: #555; text-transform: uppercase; letter-spacing: 2px; }
@@ -167,7 +163,7 @@
 
     <div class="info-container">
         <div id="device-info" class="small-info-text">SYSTEM SCANNING...</div>
-        <div class="small-info-text">CORE VERSION: 22.0.0 [FINAL STABLE]</div>
+        <div class="small-info-text">VERSION: 24.0.0</div>
     </div>
 
     <script>
