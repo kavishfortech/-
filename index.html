@@ -5,32 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>KAVISH SHAH | THE ARCHITECT</title>
     <style>
-        /* --- CORE SYSTEM & ZIP STYLES --- */
-        @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=JetBrains+Mono:wght@400;800&display=swap');
-
+        /* --- CORE SYSTEM (from style.css) --- */
         :root {
             --slide-ease: cubic-bezier(.4,-0.3,.6,1.3);
             --easing: var(--slide-ease);
             --speed: 0.5s;
-            --width: 140px; /* Large professional width */
+            --width: 180px;
             --ar: 8 / 3;
             --sun: hsl(47, 91%, 58%);
             --moon: hsl(212, 13%, 82%);
             --crater: hsl(221, 16%, 68%);
             --bg-night: #000000;
             --bg-day: #1b7fcc;
-            --system-zoom: 1; /* For the Master Slider */
-        }
-
-        /* Master Scaling Container */
-        #master-zoom-wrapper {
-            transform: scale(var(--system-zoom));
-            transform-origin: top center;
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            transition: transform 0.3s ease;
+            --system-zoom: 1;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -41,15 +28,15 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            background-color: var(--bg-night);
+            background: var(--bg-night);
             color: #fff;
             overflow-x: hidden;
             transition: background var(--speed) var(--easing);
         }
 
-        body[data-dark-mode="false"] { background-color: var(--bg-day); }
+        body[data-dark-mode="false"] { background: var(--bg-day); }
 
-        /* --- TOGGLE CSS FROM ZIP (ADVANCED) --- */
+        /* --- THE COMPLETED TOGGLE SYSTEM --- */
         #button-wrapper {
             width: var(--width);
             aspect-ratio: var(--ar);
@@ -61,6 +48,7 @@
             cursor: pointer;
             background: hsl(calc(204 + (var(--dark, 0) * 25)) calc((53 - (var(--dark, 0) * 28)) * 1%) calc((47 - (var(--dark, 0) * 31)) * 1%));
             box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            transition: background var(--speed) var(--easing);
         }
 
         #button-wrapper[aria-pressed="true"] { --dark: 1; }
@@ -69,12 +57,11 @@
         .toggle__indicator {
             height: 100%;
             aspect-ratio: 1;
-            border-radius: 50%;
             display: grid;
             place-items: center;
             padding: 3%;
             transition: translate var(--speed) var(--slide-ease);
-            translate: calc(var(--dark, 0) * (140px - 100%)) 0; /* Adjusted for width */
+            translate: calc(var(--dark, 0) * (180px - 100%)) 0;
         }
 
         .sun {
@@ -83,6 +70,9 @@
             inset: 5%;
             border-radius: 50%;
             box-shadow: inset 2px 2px 5px rgba(255,255,255,0.5);
+            /* Sun only shows when dark is 0 */
+            opacity: calc(1 - var(--dark, 0));
+            transition: opacity var(--speed);
         }
 
         .moon {
@@ -90,92 +80,118 @@
             inset: -1%;
             border-radius: 50%;
             background: var(--moon);
+            /* Moon slides in/out */
             transition: translate var(--speed) ease-in-out;
             translate: calc((100 - (var(--dark, 0) * 100)) * 1%) 0%;
+            box-shadow: inset 2px 2px 5px rgba(0,0,0,0.2);
         }
 
-        /* Stars & Twinkle from Zip */
-        #stars { position: absolute; inset: 0; width: 100%; height: 100%; opacity: var(--dark, 0); transition: opacity var(--speed); }
-        
-        @keyframes twinkle { 
-            0%, 100% { opacity: 0.3; transform: scale(1); } 
-            50% { opacity: 1; transform: scale(1.2); } 
-        }
-
-        /* --- HUB COMPONENTS --- */
-        .header-section { padding: 40px 15px 20px; }
+        /* --- TRADEMARK COLOR-SHIFTING BOX --- */
         .color-shift-box {
-            padding: 25px 35px; border: 4px solid #00f2ff; border-radius: 12px;
-            text-align: center; background: #000; animation: borderCycle 8s infinite alternate;
+            padding: 25px 35px;
+            border: 4px solid #00f2ff;
+            border-radius: 12px;
+            text-align: center;
+            background: #000;
+            /* Restored cycling */
+            animation: borderCycle 8s infinite alternate;
         }
         @keyframes borderCycle { 
-            0% { border-color: #00f2ff; box-shadow: 0 0 20px #00f2ff; } 
-            100% { border-color: #39ff14; box-shadow: 0 0 20px #39ff14; } 
+            0% { border-color: #00f2ff; box-shadow: 0 0 20px #00f2ff; color: #00f2ff; } 
+            50% { border-color: #ff00ea; box-shadow: 0 0 20px #ff00ea; color: #ff00ea; }
+            100% { border-color: #39ff14; box-shadow: 0 0 20px #39ff14; color: #39ff14; } 
+        }
+
+        /* --- GRID & CARDS --- */
+        #master-zoom-wrapper {
+            transform: scale(var(--system-zoom));
+            transform-origin: top center;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .grid-container { display: flex; flex-direction: column; gap: 15px; padding: 20px; width: 100%; max-width: 500px; }
         
         .portal-card {
-            background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1); padding: 20px; border-radius: 12px; 
-            height: 110px; display: flex; flex-direction: column; justify-content: center;
-            text-decoration: none; color: #fff; transition: 0.3s; border-left: 5px solid #00f2ff;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 12px; 
+            height: 110px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-decoration: none;
+            color: #fff;
+            transition: 0.3s;
+            border-left: 5px solid #00f2ff;
         }
-
         .portal-card:hover { transform: translateX(10px); background: rgba(255, 255, 255, 0.1); }
 
         /* ID CARD */
         .id-card-footer {
-            background: rgba(255, 255, 255, 0.05); border: 1px solid #333;
-            padding: 15px; border-radius: 12px; height: 110px;
-            display: flex; align-items: center; gap: 20px; border-left: 5px solid #00f2ff;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid #333;
+            padding: 15px;
+            border-radius: 12px;
+            height: 110px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            border-left: 5px solid #00f2ff;
         }
         .photo-wrapper { width: 80px; height: 80px; border: 2px solid #00f2ff; border-radius: 10px; overflow: hidden; }
         .id-photo { width: 100%; height: 100%; object-fit: cover; }
 
-        /* SLIDER PANEL */
+        /* CONTROLS */
         .controls-panel {
             position: fixed; bottom: 20px; background: rgba(0,0,0,0.9);
-            padding: 15px 25px; border-radius: 50px; border: 1px solid #333;
-            display: flex; flex-direction: column; align-items: center; gap: 5px;
+            padding: 10px 20px; border-radius: 50px; border: 1px solid #333;
+            display: flex; flex-direction: column; align-items: center;
         }
-        input[type=range] { width: 150px; accent-color: #00f2ff; }
-        .version-text { font-size: 10px; color: #555; margin-top: 10px; }
+        input[type=range] { width: 120px; accent-color: #00f2ff; }
     </style>
 </head>
 <body data-dark-mode="true">
 
     <div id="master-zoom-wrapper">
-        <header class="header-section">
-            <div class="color-shift-box"><h1 id="main-title">Kavish’s website</h1></div>
+        <header style="padding: 40px 15px 20px;">
+            <div class="color-shift-box">
+                <h1 style="font-family: 'Syncopate', sans-serif;">Kavish’s website</h1>
+            </div>
         </header>
 
         <div style="margin-bottom: 30px; display: flex; align-items: center; gap: 20px;">
             <button id="button-wrapper" aria-pressed="true" onclick="toggleMode()">
-                <div id="stars"></div>
+                <div id="stars-layer" style="position: absolute; inset: 0;"></div>
                 <div class="toggle__indicator">
                     <div class="sun"></div>
                     <div class="moon">
-                        <div style="position:absolute; top:20%; left:30%; width:20%; height:20%; background:rgba(0,0,0,0.1); border-radius:50%;"></div>
-                        <div style="position:absolute; top:50%; left:60%; width:15%; height:15%; background:rgba(0,0,0,0.1); border-radius:50%;"></div>
+                        <div style="position:absolute; top:20%; left:30%; width:20%; height:20%; background:var(--crater); border-radius:50%; opacity:0.4;"></div>
+                        <div style="position:absolute; top:60%; left:50%; width:15%; height:15%; background:var(--crater); border-radius:50%; opacity:0.4;"></div>
                     </div>
                 </div>
             </button>
-            <div id="fps-counter" style="color:#39ff14; font-family:'Syncopate'; font-size:12px;">FPS: 60</div>
+            <div id="fps-counter" style="color:#39ff14; font-size:12px;">FPS: 60</div>
         </div>
 
         <main class="grid-container">
             <a href="https://kavishfortech.github.io/subwaysurfers/" class="portal-card">
                 <div style="color:#00f2ff; font-weight:800;">2D NEON SURFER</div>
-                <div style="font-size:12px; color:#888;">Optimized for high-refresh displays.</div>
+                <div style="font-size:12px; color:#888;">Optimized V-Sync performance.</div>
             </a>
-            <a href="https://kavishfortech.github.io/Kavishforgames" class="portal-card" style="border-left-color: #ff00ea;">
-                <div style="color:#ff00ea; font-weight:800;">NEURAL ARCADE</div>
-                <div style="font-size:12px; color:#888;">Access the game repository.</div>
-            </a>
+
             <a href="https://kavishfortech.github.io/Ai" class="portal-card" style="border-left-color: #ffd700;">
-                <div style="color:#ffd700; font-weight:800;">AI CHAT BOX</div>
-                <div style="font-size:12px; color:#888;">Private LLM Interface.</div>
+                <div style="color:#ffd700; font-weight:800;">AI CHAT INTERFACE</div>
+                <div style="font-size:12px; color:#888;">Private neural network access.</div>
+            </a>
+
+            <a href="https://kavishfortech.github.io/Kavishforgames" class="portal-card" style="border-left-color: #ff00ea;">
+                <div style="color:#ff00ea; font-weight:800;">GITHUB REPOSITORY</div>
+                <div style="font-size:12px; color:#888;">Access all source code files.</div>
             </a>
 
             <div class="id-card-footer">
@@ -191,9 +207,8 @@
     </div>
 
     <div class="controls-panel">
-        <span style="font-size:10px; color:#00f2ff;">SYSTEM SCALE: <span id="scale-num">3</span></span>
         <input type="range" min="1" max="5" value="3" id="scale-slider" oninput="changeScale(this.value)">
-        <div class="version-text">32.0.0</div>
+        <div style="font-size: 10px; color: #555; margin-top: 5px;">32.0.0</div>
     </div>
 
     <script>
@@ -206,50 +221,46 @@
             if (isDark) {
                 btn.setAttribute('aria-pressed', 'false');
                 body.setAttribute('data-dark-mode', 'false');
+                btn.style.setProperty('--dark', '0');
             } else {
                 btn.setAttribute('aria-pressed', 'true');
                 body.setAttribute('data-dark-mode', 'true');
+                btn.style.setProperty('--dark', '1');
             }
         }
 
-        // Master Zoom Logic
+        // Master Scale
         function changeScale(val) {
-            const zoomMap = { "1": 0.6, "2": 0.8, "3": 1.0, "4": 1.2, "5": 1.5 };
-            document.documentElement.style.setProperty('--system-zoom', zoomMap[val]);
-            document.getElementById('scale-num').innerText = val;
+            const levels = { "1": 0.6, "2": 0.8, "3": 1.0, "4": 1.2, "5": 1.4 };
+            document.documentElement.style.setProperty('--system-zoom', levels[val]);
         }
 
-        // Generate Zip-style Stars
-        const starContainer = document.getElementById('stars');
-        for (let i = 0; i < 20; i++) {
-            const star = document.createElement('div');
-            star.style.position = 'absolute';
-            star.style.width = '2px';
-            star.style.height = '2px';
-            star.style.background = 'white';
-            star.style.borderRadius = '50%';
-            star.style.top = Math.random() * 100 + '%';
-            star.style.left = Math.random() * 100 + '%';
-            star.style.animation = `twinkle ${2 + Math.random() * 3}s infinite`;
-            starContainer.appendChild(star);
+        // Dynamic Stars
+        const starLayer = document.getElementById('stars-layer');
+        for (let i = 0; i < 15; i++) {
+            const s = document.createElement('div');
+            s.style.cssText = `position:absolute; width:2px; height:2px; background:white; border-radius:50%; 
+                top:${Math.random()*100}%; left:${Math.random()*100}%; 
+                opacity:var(--dark,0); transition:opacity 0.5s;`;
+            starLayer.appendChild(s);
         }
 
-        // FPS Counter
+        // FPS
+        let last = performance.now();
         let frames = 0;
-        let lastTime = performance.now();
-        function updateFPS() {
+        function tick() {
             frames++;
-            const now = performance.now();
-            if (now - lastTime >= 1000) {
+            let now = performance.now();
+            if (now - last >= 1000) {
                 document.getElementById('fps-counter').innerText = `FPS: ${frames}`;
-                frames = 0;
-                lastTime = now;
+                frames = 0; last = now;
             }
-            requestAnimationFrame(updateFPS);
+            requestAnimationFrame(tick);
         }
-        updateFPS();
+        tick();
     </script>
 </body>
 </html>
+
 
 
