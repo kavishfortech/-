@@ -13,7 +13,7 @@
             --bg-night: #050505;
             --bg-day: #2c7bb6;
             --card-base: rgba(255, 255, 255, 0.1);
-            --box-height: 110px;
+            --box-height: 115px; /* Perfect square-ish look for boxes */
         }
 
         body {
@@ -73,13 +73,14 @@
             100% { color: #ff0000; }
         }
 
-        /* --- TOGGLE & FPS --- */
+        /* --- CENTERED TOGGLE & FPS --- */
         .toggle-row {
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 25px;
             margin-bottom: 40px;
+            width: 100%;
         }
 
         .toggle {
@@ -92,7 +93,7 @@
             border: 2px solid rgba(255,255,255,0.3);
             backdrop-filter: blur(10px);
             display: flex;
-            align-items: center;
+            align-items: center; /* Vertical alignment */
         }
 
         body[data-dark-mode="true"] .toggle { background: var(--moon-glass); }
@@ -103,7 +104,7 @@
             background: #ffe066;
             border-radius: 50%;
             position: absolute;
-            left: 4px;
+            left: 4px; /* Centered in track */
             transition: transform 0.5s cubic-bezier(.4,-0.3,.6,1.3);
             box-shadow: 0 0 15px #ffe066;
         }
@@ -116,7 +117,7 @@
 
         .fps-counter { font-weight: 800; font-size: 18px; color: #adff2f; min-width: 90px; }
 
-        /* --- UNIFORM BOXES --- */
+        /* --- UNIFORM PORTAL BOXES --- */
         .grid-container { width: 100%; display: flex; flex-direction: column; gap: 15px; }
 
         .portal-card, .id-container {
@@ -126,7 +127,7 @@
             background: var(--card-base);
             backdrop-filter: blur(15px);
             border-radius: 12px;
-            padding: 15px 20px;
+            padding: 15px 25px;
             text-decoration: none;
             color: #fff;
             display: flex;
@@ -137,16 +138,13 @@
             overflow: hidden;
         }
 
-        .card-title { font-weight: 800; font-size: 16px; margin-bottom: 4px; }
-        .card-desc { font-size: 11px; opacity: 0.8; line-height: 1.3; }
+        .card-title { font-weight: 800; font-size: 17px; margin-bottom: 4px; }
+        .card-desc { font-size: 12px; opacity: 0.8; line-height: 1.4; }
 
         /* --- TRANSFORMING ID CARD --- */
         .id-container { border-left: 8px solid #00f2ff; cursor: pointer; }
 
-        .id-initial {
-            opacity: 1;
-            transition: opacity 0.3s;
-        }
+        .id-initial { opacity: 1; transition: opacity 0.3s; }
 
         .id-expanded {
             position: absolute;
@@ -178,22 +176,19 @@
         }
 
         .id-expanded img {
-            width: 75px; height: 75px;
+            width: 80px; height: 80px;
             border-radius: 50%;
             border: 3px solid #fff;
             object-fit: cover;
         }
 
-        .id-expanded .name-tag { font-size: 18px; font-weight: 900; color: #2e7d32; margin-bottom: 2px; }
-        .id-expanded .detail { font-size: 10px; font-weight: 800; margin-bottom: 4px; color: #555; }
-        .id-expanded .email { font-size: 9px; font-weight: bold; color: #2e7d32; text-decoration: none; word-break: break-all; }
+        .id-expanded .name-header { font-size: 12px; font-weight: 900; text-transform: uppercase; margin-bottom: 5px; }
+        .id-expanded .name-tag { font-size: 19px; font-weight: 900; color: #2e7d32; }
+        .id-expanded .sub-text { font-size: 10px; font-weight: 700; color: #555; }
+        .id-expanded .email { font-size: 9px; font-weight: 800; color: #2e7d32; text-decoration: none; margin-top: 5px; display: block; }
 
         /* Expansion Logic */
-        .id-container.open {
-            height: 170px;
-            border-left-width: 0;
-            padding: 0;
-        }
+        .id-container.open { height: 175px; border-left-width: 0; padding: 0; }
         .id-container.open .id-initial { opacity: 0; }
         .id-container.open .id-expanded { opacity: 1; pointer-events: auto; }
 
@@ -239,21 +234,18 @@
             <div class="id-container" id="idCard">
                 <div class="id-initial">
                     <div class="card-title" style="color:#00f2ff;">ARCHITECT ID CARD</div>
-                    <div class="card-desc">Official credential access for Kavish Shah. Tap to view full professional design.</div>
+                    <div class="card-desc">Official identity credential for Kavish Shah. Tap to reveal professional details.</div>
                 </div>
                 <div class="id-expanded">
                     <div class="left-side">
-                        <div style="font-size: 11px; font-weight: 900;">ARCHITECT</div>
-                        <div style="margin-top: 10px;">
-                            <div class="detail">Name</div>
-                            <div class="name-tag">KAVISH SHAH</div>
-                            <div class="detail">Grade: 6th | Web Designer</div>
-                            <div class="detail" style="margin-top: 5px;">Contact:</div>
-                            <a href="mailto:kavvishforbusiness@gmail.com" class="email">kavvishforbusiness@gmail.com</a>
-                        </div>
+                        <div class="name-header">KAVISH SHAH</div>
+                        <div class="name-tag">WEB DESIGNER</div>
+                        <div class="sub-text">GRADE: 6TH</div>
+                        <div class="sub-text" style="margin-top: 10px;">CONTACT US:</div>
+                        <a href="mailto:kavvishforbusiness@gmail.com" class="email">kavvishforbusiness@gmail.com</a>
                     </div>
                     <div class="right-side">
-                        <img src="https://i.ibb.co/CKY0rzSR/image.jpg" alt="Kavish">
+                        <img src="https://i.ibb.co/CKY0rzSR/image.jpg" alt="Profile">
                     </div>
                 </div>
             </div>
@@ -276,10 +268,12 @@
         const ua = navigator.userAgent;
         const isTouch = /iPad|iPhone|Android|Tablet/i.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
 
+        // ID Card Expansion Logic
         idCard.addEventListener('click', () => {
             idCard.classList.toggle('open');
         });
 
+        // Monitor actual device FPS
         let lastTime = performance.now();
         let frameCount = 0;
         let fpsDisplay = document.getElementById('fps');
@@ -299,14 +293,3 @@
     </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
