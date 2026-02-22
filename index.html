@@ -2,227 +2,215 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KAVISH SHAH | THE ARCHITECT</title>
     <style>
-        /* V31.0 - MASSIVE ARCHITECTURE BUILD 
-           CORE: PURE BLACK NIGHT MODE
-           FEATURE: MASTER SYSTEM ZOOM 
-        */
-
         @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=JetBrains+Mono:wght@400;800&display=swap');
 
         :root {
-            --ease: cubic-bezier(.4,-0.3,.6,1.3);
-            --clr-background-day: #1b7fcc;
-            --clr-background-night: #000000;
-            --clr-sun: #FCE570;
-            --clr-moon: hsl(212, 13%, 75%);
-            --neon-blue: #00f2ff;
-            --neon-green: #39ff14;
-            --neon-pink: #ff00ea;
-            
-            /* Master Zoom variable */
-            --system-zoom: 1;
+            --speed: 0.5s;
+            --easing: cubic-bezier(.4,-0.3,.6,1.3);
+            --sun-glass: rgba(0, 150, 255, 0.35);
+            --moon-glass: rgba(20, 20, 20, 0.8);
+            --bg-night: #050505;
+            --bg-day: #87CEEB;
+            --master-scale: 1;
         }
 
-        /* The magic zoom wrapper */
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            background-color: var(--bg-night);
+            color: #fff;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: background var(--speed);
+            overflow-x: hidden;
+        }
+
+        body[data-dark-mode="false"] { background-color: var(--bg-day); color: #222; }
+
         #master-zoom-wrapper {
-            transform: scale(var(--system-zoom));
+            transform: scale(var(--master-scale));
             transform-origin: top center;
             width: 100%;
             display: flex;
             flex-direction: column;
             align-items: center;
-            transition: transform 0.3s ease;
+            padding: 20px 0;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-
-        body {
-            font-family: 'JetBrains Mono', monospace;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            transition: background-color 0.75s var(--ease);
-            overflow-x: hidden;
-            background-color: var(--clr-background-night);
-            color: #fff;
+        /* --- V32 GLASS TOGGLE --- */
+        .toggle {
+            width: 90px;
+            height: 38px;
+            border-radius: 50px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            position: relative;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            margin-bottom: 25px;
+            background: var(--sun-glass); /* Blue Glass by default */
+            transition: background var(--speed);
         }
 
-        body.day-mode { background-color: var(--clr-background-day) !important; }
-        body.night-mode { background-color: var(--clr-background-night) !important; }
-
-        /* --- TRADEMARK HEADER --- */
-        .header-section { width: 100%; padding: 40px 15px 10px 15px; display: flex; justify-content: center; }
-        .color-shift-box {
-            padding: 25px 35px; border: 4px solid var(--neon-blue); border-radius: 12px;
-            text-align: center; background: #000; animation: borderCycle 8s infinite alternate; width: 100%; max-width: 500px;
-        }
-        @keyframes borderCycle {
-            0% { border-color: var(--neon-blue); box-shadow: 0 0 25px var(--neon-blue); }
-            50% { border-color: var(--neon-pink); box-shadow: 0 0 25px var(--neon-pink); }
-            100% { border-color: var(--neon-green); box-shadow: 0 0 25px var(--neon-green); }
-        }
-        .color-shift-box h1 { 
-            font-family: 'Syncopate'; font-size: 1.2rem; animation: textCycle 8s infinite alternate; text-transform: uppercase; 
-        }
-        @keyframes textCycle {
-            0% { color: var(--neon-blue); text-shadow: 0 0 12px var(--neon-blue); }
-            50% { color: var(--neon-pink); text-shadow: 0 0 12px var(--neon-pink); }
-            100% { color: var(--neon-green); text-shadow: 0 0 12px var(--neon-green); }
+        body[data-dark-mode="true"] .toggle {
+            background: var(--moon-glass);
+            border-color: rgba(255,255,255,0.1);
         }
 
-        /* --- THE LARGE TOGGLE (SPECIFICALLY BIGGER) --- */
-        .status-bar { display: flex; align-items: center; gap: 20px; margin: 20px 0; }
-        #button-wrapper {
-            position: relative; width: 100px; height: 50px; border: none; border-radius: 50px;
-            cursor: pointer; background: #333; overflow: hidden; transition: 0.5s;
+        .toggle__indicator {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            position: absolute;
+            top: 2px;
+            left: 3px;
+            transition: transform var(--speed) var(--easing), background var(--speed);
+            background: #FFD700;
+            box-shadow: 0 0 15px #FFD700;
         }
-        #button {
-            position: absolute; left: 8px; top: 8px; width: 34px; height: 34px;
-            background: var(--clr-sun); border-radius: 50%; transition: 0.5s var(--ease); z-index: 2;
+
+        body[data-dark-mode="true"] .toggle__indicator {
+            transform: translateX(50px);
+            background: #D1D1D1;
+            box-shadow: inset -5px -2px 0 #888;
         }
-        body.night-mode #button { transform: translateX(50px); background: var(--clr-moon); box-shadow: inset -4px -2px 0 #555; }
-        #stars { position: absolute; width: 100%; height: 100%; top: 0; left: 0; opacity: 0; transition: 0.5s; }
-        body.night-mode #stars { opacity: 1; }
-        #fps-display { color: var(--neon-green); font-family: 'Syncopate'; font-size: 14px; }
 
-        /* --- PORTAL BOXES (ORIGINAL SIZE RESTORED) --- */
-        .grid-container { display: flex; flex-direction: column; gap: 15px; padding: 20px; width: 100%; max-width: 500px; }
-        .portal-card, .id-card-footer {
-            background: rgba(255, 255, 255, 0.01); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.1); padding: 20px; border-radius: 12px; height: 110px; /* BOX SIZE RESTORED */
-            display: flex; flex-direction: column; justify-content: center; border-left: 5px solid transparent;
-            text-decoration: none; color: #fff; transition: all 0.3s ease;
-        }
-        body.day-mode .portal-card, body.day-mode .id-card-footer { background: rgba(255, 255, 255, 0.15); }
-
-        /* iPad Tap Feature */
-        .id-expanded { transform: scale(1.1) !important; height: 130px !important; }
-
-        .id-card-footer { flex-direction: row; align-items: center; gap: 20px; border-left-color: var(--neon-blue); cursor: pointer; }
-        .photo-wrapper { width: 85px; height: 85px; border: 2px solid var(--neon-blue); border-radius: 10px; overflow: hidden; flex-shrink: 0; }
-        .id-photo { width: 100%; height: 100%; object-fit: cover; }
+        /* --- BOXES (V24 STYLE) --- */
+        .grid-container { width: 90%; max-width: 380px; display: flex; flex-direction: column; gap: 12px; }
         
-        .card-title { font-family: 'Syncopate'; font-size: 0.85rem; margin-bottom: 5px; }
-        .card-desc { font-size: 0.7rem; color: #999; line-height: 1.4; }
-        .blue-side { border-left-color: var(--neon-blue); }
-        .pink-side { border-left-color: var(--neon-pink); }
-        .gold-side { border-left-color: #ffd700; }
-        .green-side { border-left-color: var(--neon-green); }
+        .portal-card {
+            background: rgba(255, 255, 255, 0.07);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 14px;
+            border-radius: 10px;
+            text-decoration: none;
+            color: inherit;
+            border-left: 4px solid #00f2ff;
+            transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
 
-        /* --- ZOOM CONTROLLER --- */
-        .zoom-controls { margin-top: 30px; text-align: center; background: rgba(0,0,0,0.5); padding: 15px; border-radius: 20px; border: 1px solid #333; }
-        .zoom-label { font-size: 10px; text-transform: uppercase; letter-spacing: 2px; color: var(--neon-blue); margin-bottom: 8px; }
-        input[type=range] { width: 200px; accent-color: var(--neon-blue); cursor: pointer; }
+        /* Desktop Hover Effect */
+        @media (hover: hover) {
+            .portal-card:hover {
+                transform: translateX(10px) scale(1.02);
+                background: rgba(255, 255, 255, 0.15);
+                box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            }
+        }
 
-        .info-container { text-align: center; padding: 20px; }
-        .small-info-text { font-size: 0.6rem; color: #555; text-transform: uppercase; letter-spacing: 2px; }
+        .card-title { font-weight: 800; font-size: 13px; letter-spacing: 1px; margin-bottom: 4px; }
+        .card-desc { font-size: 10px; opacity: 0.8; line-height: 1.3; }
+
+        /* --- ID CARD (TAP FEATURE) --- */
+        .id-card {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            border-radius: 10px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-left: 4px solid #00f2ff;
+            cursor: pointer;
+            transition: all 0.4s ease;
+        }
+        .id-card.expanded { transform: scale(1.05); background: rgba(0, 242, 255, 0.1); }
+        .id-photo { width: 50px; height: 50px; border-radius: 6px; border: 1.5px solid #00f2ff; transition: 0.4s; }
+        .id-card.expanded .id-photo { transform: rotate(5deg) scale(1.1); }
+
+        /* --- FOOTER INFO --- */
+        .footer-metrics {
+            margin-top: 30px;
+            display: flex;
+            gap: 20px;
+            font-size: 9px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            opacity: 0.5;
+        }
+
+        .controls {
+            position: fixed; bottom: 15px; 
+            background: rgba(0,0,0,0.8); padding: 8px 20px; border-radius: 40px;
+            border: 1px solid #333; display: flex; align-items: center; gap: 10px;
+        }
+        input[type=range] { width: 100px; accent-color: #00f2ff; }
     </style>
 </head>
-<body class="night-mode">
+<body data-dark-mode="true">
 
     <div id="master-zoom-wrapper">
-        <header class="header-section">
-            <div class="color-shift-box"><h1>Kavish’s website</h1></div>
-        </header>
+        <h1 style="font-family: 'Syncopate'; font-size: 16px; margin-bottom: 20px; color: #00f2ff;">KAVISH ARCHITECT</h1>
 
-        <div class="status-bar">
-            <button id="button-wrapper" onclick="toggleButton()">
-                <span id="button"></span>
-                <canvas id="stars"></canvas>
-            </button>
-            <div id="fps-display">FPS: --</div>
+        <div class="toggle" onclick="toggleMode()">
+            <div class="toggle__indicator"></div>
         </div>
 
         <main class="grid-container">
-            <a href="https://kavishfortech.github.io/subwaysurfers/" class="portal-card blue-side">
-                <div class="card-title" style="color: var(--neon-blue);">2D NEON SURFER</div>
-                <div class="card-desc">High-velocity gameplay in a neon world. Optimized for max FPS and zero latency.</div>
-            </a>
-            <a href="https://kavishfortech.github.io/Kavishforgames" class="portal-card pink-side">
-                <div class="card-title" style="color: var(--neon-pink);">NEURAL ARCADE</div>
-                <div class="card-desc">Central hub for experimental gaming. Seamless navigation between arcade titles.</div>
-            </a>
-            <a href="https://kavishfortech.github.io/Ai" class="portal-card gold-side">
-                <div class="card-title" style="color: #ffd700;">AI CHAT BOX</div>
-                <div class="card-desc">Real-time AI processing core. Direct link to the Architect's private AI.</div>
-            </a>
-            <a href="https://github.com/kavishfortech" class="portal-card green-side">
-                <div class="card-title" style="color: var(--neon-green);">GITHUB PROFILE</div>
-                <div class="card-desc">Review source code and branches. Instant access for dev workflows.</div>
+            <a href="https://kavishfortech.github.io/subwaysurfers/" class="portal-card" style="border-left-color: #ff9d00;">
+                <div class="card-title" style="color:#ff9d00;">SUBWAY SURFERS 2D</div>
+                <div class="card-desc">Advanced 2D rendering of the classic runner game engine.<br>Optimized for low-latency browser performance.</div>
             </a>
 
-            <div class="id-card-footer" id="main-id-card" onclick="toggleExpand()">
-                <div class="photo-wrapper">
-                    <img src="https://i.ibb.co/CKY0rzSR/image.jpg" class="id-photo" alt="Kavish">
-                </div>
-                <div class="id-content">
-                    <div class="id-name">KAVISH SHAH</div>
-                    <div class="id-rank">6TH GRADER | ARCHITECT</div>
+            <a href="https://kavishfortech.github.io/Kavishforgames" class="portal-card" style="border-left-color: #00ff88;">
+                <div class="card-title" style="color:#00ff88;">NEURAL ARCADE</div>
+                <div class="card-desc">Legacy gaming suite featuring Snake and Minesweeper logic.<br>The official repository for ARCHITECT interactive assets.</div>
+            </a>
+
+            <a href="https://kavishfortech.github.io/Ai" class="portal-card" style="border-left-color: #ffd700;">
+                <div class="card-title" style="color:#ffd700;">AI CHAT INTERFACE</div>
+                <div class="card-desc">Direct neural link for real-time AI architectural commands.<br>Powered by V32.0 core processing units.</div>
+            </a>
+
+            <a href="https://github.com/kavishfortech" class="portal-card" style="border-left-color: #ff00ea;">
+                <div class="card-title" style="color:#ff00ea;">GITHUB PROFILE</div>
+                <div class="card-desc">Access centralized source code and invisible repository assets.<br>Global directory for all ARCHITECT builds.</div>
+            </a>
+
+            <div class="id-card" onclick="this.classList.toggle('expanded')">
+                <img src="https://i.ibb.co/CKY0rzSR/image.jpg" class="id-photo" alt="Kavish">
+                <div>
+                    <div style="font-weight:800; font-size:12px;">KAVISH SHAH</div>
+                    <div style="font-size:9px; color:#00f2ff;">6TH GRADE | LEAD ARCHITECT</div>
                 </div>
             </div>
         </main>
+
+        <div class="footer-metrics">
+            <span>VER: 32.0.0</span>
+            <span id="device-tag">DEVICE: DETECTING...</span>
+        </div>
     </div>
 
-    <div class="zoom-controls">
-        <div class="zoom-label">Master Zoom: <span id="z-val">100%</span></div>
-        <input type="range" min="0.5" max="2" step="0.1" value="1" id="zoom-slider" oninput="updateZoom(this.value)">
-    </div>
-
-    <div class="info-container">
-        <div class="small-info-text">VERSION: 31.0.0</div>
+    <div class="controls">
+        <input type="range" min="0.7" max="1.3" step="0.05" value="1" oninput="setScale(this.value)">
     </div>
 
     <script>
-        // System Zoom Logic
-        function updateZoom(val) {
-            document.documentElement.style.setProperty('--system-zoom', val);
-            document.getElementById('z-val').innerText = Math.round(val * 100) + "%";
-        }
-
-        // Toggle Function
-        function toggleButton() {
+        function toggleMode() {
             const body = document.body;
-            if (body.classList.contains('night-mode')) {
-                body.classList.replace('night-mode', 'day-mode');
-            } else {
-                body.classList.replace('day-mode', 'night-mode');
-            }
+            const isDark = body.getAttribute('data-dark-mode') === 'true';
+            body.setAttribute('data-dark-mode', !isDark);
         }
 
-        // iPad Expansion
-        const isIPad = /iPad|Macintosh/i.test(navigator.userAgent) && 'ontouchend' in document;
-        function toggleExpand() { if (isIPad) document.getElementById('main-id-card').classList.toggle('id-expanded'); }
-
-        // FPS logic
-        let lastTime = performance.now();
-        let frameCount = 0;
-        function calculateFPS() {
-            let now = performance.now();
-            frameCount++;
-            if (now - lastTime >= 1000) {
-                document.getElementById('fps-display').innerText = `FPS: ${frameCount}`;
-                frameCount = 0;
-                lastTime = now;
-            }
-            requestAnimationFrame(calculateFPS);
+        function setScale(val) {
+            document.documentElement.style.setProperty('--master-scale', val);
         }
-        requestAnimationFrame(calculateFPS);
 
-        // Stars
-        const canvas = document.getElementById('stars');
-        const ctx = canvas.getContext('2d');
-        canvas.width = 100; canvas.height = 50;
-        for(let i=0; i<25; i++) {
-            ctx.fillStyle = "white";
-            ctx.fillRect(Math.random()*100, Math.random()*50, 1.5, 1.5);
-        }
+        // Simple Device Detection
+        const ua = navigator.userAgent;
+        let device = "DESKTOP";
+        if (/tablet|ipad|playbook|silk/i.test(ua)) device = "TABLET";
+        else if (/Mobile|Android|iP(hone|od)/i.test(ua)) device = "MOBILE";
+        document.getElementById('device-tag').innerText = `DEVICE: ${device}`;
     </script>
 </body>
 </html>
+
 
 
 
