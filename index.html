@@ -8,11 +8,13 @@
         @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=JetBrains+Mono:wght@400;800&display=swap');
 
         :root {
+            --speed: 0.5s;
+            --easing: cubic-bezier(.4,-0.3,.6,1.3);
             --sun-glass: rgba(0, 150, 255, 0.4);
-            --moon-glass: rgba(34, 34, 34, 0.8);
+            --moon-glass: rgba(30, 30, 30, 0.8);
             --bg-night: #050505;
             --bg-day: #2c7bb6;
-            --card-glass: rgba(255, 255, 255, 0.1);
+            --card-base: rgba(255, 255, 255, 0.1);
         }
 
         body {
@@ -22,13 +24,13 @@
             margin: 0;
             display: flex;
             justify-content: center;
-            transition: background 0.5s;
+            transition: background var(--speed);
             overflow-x: hidden;
         }
 
         body[data-dark-mode="false"] { 
             background-color: var(--bg-day); 
-            --card-glass: rgba(255, 255, 255, 0.2);
+            --card-base: rgba(255, 255, 255, 0.2);
         }
 
         #master-zoom-wrapper {
@@ -40,7 +42,7 @@
             padding: 40px 20px;
         }
 
-        /* --- TRADEMARK BOX --- */
+        /* --- TRADEMARK BOX (RGB CYCLE) --- */
         .trademark-box {
             width: 100%;
             background: #000;
@@ -49,30 +51,34 @@
             padding: 25px 10px;
             text-align: center;
             margin-bottom: 20px;
-            animation: borderGlow 3s infinite alternate;
+            animation: borderRGB 4s infinite linear;
         }
 
         .trademark-text {
             font-family: 'Syncopate';
             font-size: 22px;
             font-weight: 900;
-            animation: textGlow 3s infinite alternate;
+            animation: textRGB 4s infinite linear;
         }
 
-        @keyframes borderGlow {
-            0% { border-color: #adff2f; box-shadow: 0 0 15px #adff2f; }
-            100% { border-color: #00f2ff; box-shadow: 0 0 15px #00f2ff; }
+        @keyframes borderRGB {
+            0% { border-color: #ff0000; box-shadow: 0 0 15px #ff0000; }
+            33% { border-color: #00ff00; box-shadow: 0 0 15px #00ff00; }
+            66% { border-color: #0000ff; box-shadow: 0 0 15px #0000ff; }
+            100% { border-color: #ff0000; box-shadow: 0 0 15px #ff0000; }
         }
-        @keyframes textGlow {
-            0% { color: #adff2f; text-shadow: 0 0 10px #adff2f; }
-            100% { color: #00f2ff; text-shadow: 0 0 10px #00f2ff; }
+        @keyframes textRGB {
+            0% { color: #ff0000; }
+            33% { color: #00ff00; }
+            66% { color: #0000ff; }
+            100% { color: #ff0000; }
         }
 
         /* --- CENTERED TOGGLE & FPS --- */
         .toggle-row {
             display: flex;
             align-items: center;
-            justify-content: center; /* Perfect center */
+            justify-content: center;
             gap: 20px;
             margin-bottom: 40px;
             width: 100%;
@@ -88,19 +94,19 @@
             border: 2px solid rgba(255,255,255,0.3);
             backdrop-filter: blur(10px);
             display: flex;
-            align-items: center; /* Centers sun/moon vertically */
+            align-items: center; /* Perfect Vertical Centering */
         }
 
         body[data-dark-mode="true"] .toggle { background: var(--moon-glass); }
 
         .toggle__indicator {
-            width: 34px;
-            height: 34px;
+            width: 36px;
+            height: 36px;
             background: #ffe066;
             border-radius: 50%;
             position: absolute;
             left: 4px;
-            transition: transform 0.5s cubic-bezier(.4,-0.3,.6,1.3);
+            transition: transform var(--speed) var(--easing), background var(--speed);
             box-shadow: 0 0 15px #ffe066;
         }
 
@@ -114,14 +120,14 @@
             font-weight: 800;
             font-size: 18px;
             color: #adff2f;
-            min-width: 80px;
+            min-width: 90px;
         }
 
-        /* --- TRANSPARENT GLASS BOXES --- */
+        /* --- PORTAL BOXES (FIXED COLORS PER PHOTO) --- */
         .grid-container { width: 100%; display: flex; flex-direction: column; gap: 15px; }
 
         .portal-card {
-            background: var(--card-glass);
+            background: var(--card-base);
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
             border: 1px solid rgba(255, 255, 255, 0.1);
@@ -129,17 +135,13 @@
             padding: 20px;
             text-decoration: none;
             color: #fff;
-            border-left: 8px solid #ff9d00;
-            transition: 0.3s ease;
+            transition: transform 0.3s ease, background 0.3s;
         }
 
-        .portal-card:hover {
-            transform: scale(1.02);
-            background: rgba(255, 255, 255, 0.25);
-        }
+        .portal-card:hover { transform: scale(1.02); background: rgba(255,255,255,0.25); }
 
         .card-title { font-weight: 800; font-size: 17px; margin-bottom: 5px; }
-        .card-desc { font-size: 13px; opacity: 0.9; line-height: 1.4; }
+        .card-desc { font-size: 12px; opacity: 0.8; line-height: 1.4; }
 
         /* --- ID CARD --- */
         .id-card {
@@ -147,11 +149,13 @@
             align-items: center;
             gap: 15px;
             padding: 15px;
-            background: var(--card-glass);
+            background: var(--card-base);
             backdrop-filter: blur(10px);
             border-radius: 12px;
             border-left: 8px solid #00f2ff;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
+        .id-card.tapped { transform: scale(1.08); background: rgba(0, 242, 255, 0.15); }
         .id-photo { width: 55px; height: 55px; border-radius: 8px; border: 2px solid #00f2ff; }
 
         .footer-info {
@@ -180,27 +184,27 @@
         </div>
 
         <main class="grid-container">
-            <a href="https://kavishfortech.github.io/subwaysurfers/" class="portal-card" style="border-left-color: #ff9d00;">
+            <a href="https://kavishfortech.github.io/subwaysurfers/" class="portal-card" style="border-left: 8px solid #ff9d00;">
                 <div class="card-title" style="color:#ff9d00;">SUBWAY SURFERS 2D</div>
                 <div class="card-desc">High-velocity rendering in a neon world.<br>Optimized for max FPS and low latency.</div>
             </a>
 
-            <a href="https://kavishfortech.github.io/Kavishforgames" class="portal-card" style="border-left-color: #00ff88;">
+            <a href="https://kavishfortech.github.io/Kavishforgames" class="portal-card" style="border-left: 8px solid #00ff88;">
                 <div class="card-title" style="color:#00ff88;">NEURAL ARCADE</div>
                 <div class="card-desc">Legacy hub gaming suite featuring Snake & Minesweeper.<br>V32.0 core interactive assets.</div>
             </a>
 
-            <a href="https://kavishfortech.github.io/Ai" class="portal-card" style="border-left-color: #ffd700;">
+            <a href="https://kavishfortech.github.io/Ai" class="portal-card" style="border-left: 8px solid #ffd700;">
                 <div class="card-title" style="color:#ffd700;">AI CHAT INTERFACE</div>
                 <div class="card-desc">Real-time AI processing core.<br>Direct link to the Architect's private AI.</div>
             </a>
 
-            <a href="https://github.com/kavishfortech" class="portal-card" style="border-left-color: #00f2ff;">
+            <a href="https://github.com/kavishfortech" class="portal-card" style="border-left: 8px solid #00f2ff;">
                 <div class="card-title" style="color:#00f2ff;">GITHUB PROFILE</div>
                 <div class="card-desc">Centralized source code repository.<br>Global directory for all ARCHITECT builds.</div>
             </a>
 
-            <div class="id-card">
+            <div class="id-card" id="idCard">
                 <img src="https://i.ibb.co/CKY0rzSR/image.jpg" class="id-photo" alt="ID">
                 <div>
                     <div style="font-weight:800; font-size:15px;">KAVISH SHAH</div>
@@ -211,42 +215,51 @@
 
         <div class="footer-info">
             <span>VERSION: 32.0.0</span>
-            <span id="dev-tag">DEVICE: MOBILE</span>
+            <span id="dev-tag">DEVICE: --</span>
         </div>
     </div>
 
     <script>
-        // TOGGLE LOGIC
         function toggleMode() {
             const body = document.body;
             const isDark = body.getAttribute('data-dark-mode') === 'true';
             body.setAttribute('data-dark-mode', !isDark);
         }
 
-        // REAL-TIME FPS MONITOR
-        let lastCalledTime;
-        let fps;
-        function requestPosition() {
-            if (!lastCalledTime) {
-                lastCalledTime = performance.now();
-                fps = 0;
-            } else {
-                let delta = (performance.now() - lastCalledTime) / 1000;
-                lastCalledTime = performance.now();
-                fps = Math.round(1 / delta);
-            }
-            document.getElementById('fps').innerText = `FPS: ${fps}`;
-            requestAnimationFrame(requestPosition);
-        }
-        requestAnimationFrame(requestPosition);
+        // Real FPS Calculation
+        let lastTime = performance.now();
+        let frameCount = 0;
+        let fpsDisplay = document.getElementById('fps');
 
-        // DEVICE DETECTION
-        if(!/Mobi|Android/i.test(navigator.userAgent)) {
+        function updateFPS() {
+            frameCount++;
+            let now = performance.now();
+            if (now - lastTime >= 1000) {
+                fpsDisplay.innerText = `FPS: ${frameCount}`;
+                frameCount = 0;
+                lastTime = now;
+            }
+            requestAnimationFrame(updateFPS);
+        }
+        updateFPS();
+
+        // iPad / Touch detection for Tap Feature
+        const idCard = document.getElementById('idCard');
+        const ua = navigator.userAgent;
+        const isTouch = /iPad|iPhone|Android|Tablet/i.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+
+        if (isTouch) {
+            document.getElementById('dev-tag').innerText = "DEVICE: TOUCH-ENABLED";
+            idCard.addEventListener('click', () => {
+                idCard.classList.toggle('tapped');
+            });
+        } else {
             document.getElementById('dev-tag').innerText = "DEVICE: DESKTOP";
         }
     </script>
 </body>
 </html>
+
 
 
 
