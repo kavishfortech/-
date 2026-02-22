@@ -23,10 +23,11 @@
             margin: 0;
             display: flex;
             justify-content: center;
-            transition: background 0.5s;
+            transition: background 0.5s ease;
             overflow-x: hidden;
         }
 
+        /* Mode Logic */
         body[data-dark-mode="false"] { 
             background-color: var(--bg-day); 
             --card-base: rgba(255, 255, 255, 0.2);
@@ -73,7 +74,7 @@
             100% { color: #ff0000; }
         }
 
-        /* --- TOGGLE & FPS --- */
+        /* --- SYNCED TOGGLE --- */
         .toggle-row {
             display: flex;
             align-items: center;
@@ -107,6 +108,9 @@
             left: 4px;
             transition: transform 0.5s cubic-bezier(.4,-0.3,.6,1.3);
             box-shadow: 0 0 15px #ffe066;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         body[data-dark-mode="true"] .toggle__indicator {
@@ -180,7 +184,6 @@
             object-fit: cover;
         }
 
-        .id-expanded .name-header { font-size: 11px; font-weight: 900; text-transform: uppercase; }
         .id-expanded .name-tag { font-size: 19px; font-weight: 900; color: #2e7d32; }
         .id-expanded .sub-text { font-size: 10px; font-weight: 700; color: #555; }
         .id-expanded .email { font-size: 9px; font-weight: 800; color: #2e7d32; text-decoration: none; display: block; margin-top: 5px; }
@@ -191,7 +194,7 @@
         .footer-info { margin-top: 35px; display: flex; gap: 15px; font-size: 10px; opacity: 0.8; font-weight: 800; }
     </style>
 </head>
-<body data-dark-mode="false">
+<body id="mainBody">
 
     <div id="master-zoom-wrapper">
         <div class="trademark-box">
@@ -213,7 +216,7 @@
 
             <a href="https://kavishfortech.github.io/Kavishforgames" class="portal-card" style="border-left: 8px solid #00ff88;">
                 <div class="card-title" style="color:#00ff88;">NEURAL ARCADE</div>
-                <div class="card-desc">Legacy hub gaming suite featuring Snake & Minesweeper. V32.1 interactive assets.</div>
+                <div class="card-desc">Legacy hub gaming suite featuring Snake & Minesweeper. V32.3 interactive assets.</div>
             </a>
 
             <a href="https://kavishfortech.github.io/Ai" class="portal-card" style="border-left: 8px solid #ffd700;">
@@ -228,14 +231,14 @@
 
             <div class="id-container" id="idCard">
                 <div class="id-initial">
-                    <div class="card-title" style="color:#00f2ff;"> DETAILS </div>
+                    <div class="card-title" style="color:#00f2ff;">ARCHITECT ID CARD</div>
                     <div class="card-desc">Official identity credential for Kavish Shah. Tap to reveal professional details.</div>
                 </div>
                 <div class="id-expanded">
                     <div class="left-side">
-                        <div class="name-header">KAVISH SHAH</div>
-                        <div class="name-tag">WEB DESIGNER</div>
-                        <div class="sub-text">GRADE: 6TH</div>
+                        <div style="font-size: 11px; font-weight: 900;">ARCHITECT</div>
+                        <div class="name-tag">KAVISH SHAH</div>
+                        <div class="sub-text">GRADE: 6TH | WEB DESIGNER</div>
                         <div class="sub-text" style="margin-top: 10px;">CONTACT US:</div>
                         <a href="mailto:kavvishforbusiness@gmail.com" class="email">kavvishforbusiness@gmail.com</a>
                     </div>
@@ -247,23 +250,42 @@
         </main>
 
         <div class="footer-info">
-            <span>VERSION: 32.0.1</span>
+            <span>VERSION: 32.0.3</span>
             <span id="dev-tag">DEVICE: --</span>
         </div>
     </div>
 
     <script>
+        const body = document.getElementById('mainBody');
+
+        // DETECT AND APPLY THEME
+        function applySystemTheme() {
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            body.setAttribute('data-dark-mode', prefersDark);
+        }
+
+        // Run detection on load
+        applySystemTheme();
+
+        // Listen for system theme changes while page is open
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+            body.setAttribute('data-dark-mode', e.matches);
+        });
+
+        // MANUAL TOGGLE (Overrides system until refresh)
         function toggleMode() {
-            const body = document.body;
             const isDark = body.getAttribute('data-dark-mode') === 'true';
             body.setAttribute('data-dark-mode', !isDark);
         }
 
+        // ID CARD EXPANSION
         const idCard = document.getElementById('idCard');
+        idCard.addEventListener('click', () => { idCard.classList.toggle('open'); });
+
+        // FPS & DEVICE INFO
         const ua = navigator.userAgent;
         const isTouch = /iPad|iPhone|Android|Tablet/i.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-
-        idCard.addEventListener('click', () => { idCard.classList.toggle('open'); });
+        document.getElementById('dev-tag').innerText = isTouch ? "DEVICE: TOUCH-ENABLED" : "DEVICE: DESKTOP";
 
         let lastTime = performance.now();
         let frameCount = 0;
@@ -279,9 +301,8 @@
             requestAnimationFrame(updateFPS);
         }
         updateFPS();
-
-        document.getElementById('dev-tag').innerText = isTouch ? "DEVICE: TOUCH-ENABLED" : "DEVICE: DESKTOP";
     </script>
 </body>
 </html>
+
 
