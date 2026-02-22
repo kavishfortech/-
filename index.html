@@ -8,13 +8,11 @@
         @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=JetBrains+Mono:wght@400;800&display=swap');
 
         :root {
-            --speed: 0.5s;
-            --easing: cubic-bezier(.4,-0.3,.6,1.3);
             --sun-glass: rgba(0, 150, 255, 0.4);
-            --moon-glass: #222;
+            --moon-glass: rgba(34, 34, 34, 0.8);
             --bg-night: #050505;
-            --bg-day: #2c7bb6; /* Matching the blue in your photo */
-            --master-scale: 1;
+            --bg-day: #2c7bb6;
+            --card-glass: rgba(255, 255, 255, 0.1);
         }
 
         body {
@@ -24,14 +22,16 @@
             margin: 0;
             display: flex;
             justify-content: center;
-            transition: background var(--speed);
+            transition: background 0.5s;
+            overflow-x: hidden;
         }
 
-        body[data-dark-mode="false"] { background-color: var(--bg-day); color: #fff; }
+        body[data-dark-mode="false"] { 
+            background-color: var(--bg-day); 
+            --card-glass: rgba(255, 255, 255, 0.2);
+        }
 
         #master-zoom-wrapper {
-            transform: scale(var(--master-scale));
-            transform-origin: top center;
             width: 100%;
             max-width: 450px;
             display: flex;
@@ -40,7 +40,7 @@
             padding: 40px 20px;
         }
 
-        /* --- TRADEMARK COLOR-SHIFTING BOX --- */
+        /* --- TRADEMARK BOX --- */
         .trademark-box {
             width: 100%;
             background: #000;
@@ -48,7 +48,7 @@
             border-radius: 15px;
             padding: 25px 10px;
             text-align: center;
-            margin-bottom: 10px;
+            margin-bottom: 20px;
             animation: borderGlow 3s infinite alternate;
         }
 
@@ -68,12 +68,14 @@
             100% { color: #00f2ff; text-shadow: 0 0 10px #00f2ff; }
         }
 
-        /* --- TOGGLE & FPS ROW --- */
+        /* --- CENTERED TOGGLE & FPS --- */
         .toggle-row {
             display: flex;
             align-items: center;
+            justify-content: center; /* Perfect center */
             gap: 20px;
             margin-bottom: 40px;
+            width: 100%;
         }
 
         .toggle {
@@ -83,27 +85,27 @@
             position: relative;
             cursor: pointer;
             background: var(--sun-glass);
-            border: 2px solid rgba(255,255,255,0.2);
+            border: 2px solid rgba(255,255,255,0.3);
             backdrop-filter: blur(10px);
-            transition: 0.4s;
+            display: flex;
+            align-items: center; /* Centers sun/moon vertically */
         }
 
         body[data-dark-mode="true"] .toggle { background: var(--moon-glass); }
 
         .toggle__indicator {
-            width: 36px;
-            height: 36px;
+            width: 34px;
+            height: 34px;
             background: #ffe066;
             border-radius: 50%;
             position: absolute;
-            top: 2px;
-            left: 3px;
-            transition: transform var(--speed) var(--easing);
+            left: 4px;
+            transition: transform 0.5s cubic-bezier(.4,-0.3,.6,1.3);
             box-shadow: 0 0 15px #ffe066;
         }
 
         body[data-dark-mode="true"] .toggle__indicator {
-            transform: translateX(55px);
+            transform: translateX(54px);
             background: #bbb;
             box-shadow: inset -6px -2px 0 #888;
         }
@@ -112,41 +114,43 @@
             font-weight: 800;
             font-size: 18px;
             color: #adff2f;
-            animation: textGlow 3s infinite alternate;
+            min-width: 80px;
         }
 
-        /* --- PORTAL BOXES (V24 STYLE) --- */
+        /* --- TRANSPARENT GLASS BOXES --- */
         .grid-container { width: 100%; display: flex; flex-direction: column; gap: 15px; }
 
         .portal-card {
-            background: #2b3e50; /* Darker blue-grey from photo */
+            background: var(--card-glass);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 12px;
             padding: 20px;
             text-decoration: none;
             color: #fff;
             border-left: 8px solid #ff9d00;
-            transition: 0.3s;
+            transition: 0.3s ease;
         }
 
-        /* Hover effect for Desktop */
-        @media (hover: hover) {
-            .portal-card:hover { transform: scale(1.03); background: #364d63; }
+        .portal-card:hover {
+            transform: scale(1.02);
+            background: rgba(255, 255, 255, 0.25);
         }
 
         .card-title { font-weight: 800; font-size: 17px; margin-bottom: 5px; }
-        .card-desc { font-size: 13px; opacity: 0.7; line-height: 1.4; }
+        .card-desc { font-size: 13px; opacity: 0.9; line-height: 1.4; }
 
         /* --- ID CARD --- */
         .id-card {
-            margin-top: 10px;
             display: flex;
             align-items: center;
             gap: 15px;
             padding: 15px;
-            background: rgba(255,255,255,0.1);
+            background: var(--card-glass);
+            backdrop-filter: blur(10px);
             border-radius: 12px;
             border-left: 8px solid #00f2ff;
-            cursor: pointer;
         }
         .id-photo { width: 55px; height: 55px; border-radius: 8px; border: 2px solid #00f2ff; }
 
@@ -155,7 +159,8 @@
             display: flex;
             gap: 15px;
             font-size: 10px;
-            opacity: 0.6;
+            opacity: 0.8;
+            font-weight: 800;
         }
     </style>
 </head>
@@ -171,7 +176,7 @@
             <div class="toggle" onclick="toggleMode()">
                 <div class="toggle__indicator"></div>
             </div>
-            <div class="fps-counter">FPS: 3X</div>
+            <div class="fps-counter" id="fps">FPS: --</div>
         </div>
 
         <main class="grid-container">
@@ -195,7 +200,7 @@
                 <div class="card-desc">Centralized source code repository.<br>Global directory for all ARCHITECT builds.</div>
             </a>
 
-            <div class="id-card" onclick="this.style.transform='scale(1.1)'">
+            <div class="id-card">
                 <img src="https://i.ibb.co/CKY0rzSR/image.jpg" class="id-photo" alt="ID">
                 <div>
                     <div style="font-weight:800; font-size:15px;">KAVISH SHAH</div>
@@ -211,19 +216,38 @@
     </div>
 
     <script>
+        // TOGGLE LOGIC
         function toggleMode() {
             const body = document.body;
             const isDark = body.getAttribute('data-dark-mode') === 'true';
             body.setAttribute('data-dark-mode', !isDark);
         }
 
-        // Auto-detect device for footer
+        // REAL-TIME FPS MONITOR
+        let lastCalledTime;
+        let fps;
+        function requestPosition() {
+            if (!lastCalledTime) {
+                lastCalledTime = performance.now();
+                fps = 0;
+            } else {
+                let delta = (performance.now() - lastCalledTime) / 1000;
+                lastCalledTime = performance.now();
+                fps = Math.round(1 / delta);
+            }
+            document.getElementById('fps').innerText = `FPS: ${fps}`;
+            requestAnimationFrame(requestPosition);
+        }
+        requestAnimationFrame(requestPosition);
+
+        // DEVICE DETECTION
         if(!/Mobi|Android/i.test(navigator.userAgent)) {
             document.getElementById('dev-tag').innerText = "DEVICE: DESKTOP";
         }
     </script>
 </body>
 </html>
+
 
 
 
