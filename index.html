@@ -8,13 +8,12 @@
         @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=JetBrains+Mono:wght@400;800&display=swap');
 
         :root {
-            --speed: 0.5s;
-            --easing: cubic-bezier(.4,-0.3,.6,1.3);
             --sun-glass: rgba(0, 150, 255, 0.4);
             --moon-glass: rgba(30, 30, 30, 0.8);
             --bg-night: #050505;
             --bg-day: #2c7bb6;
             --card-base: rgba(255, 255, 255, 0.1);
+            --box-height: 110px;
         }
 
         body {
@@ -24,7 +23,7 @@
             margin: 0;
             display: flex;
             justify-content: center;
-            transition: background var(--speed);
+            transition: background 0.5s;
             overflow-x: hidden;
         }
 
@@ -35,28 +34,28 @@
 
         #master-zoom-wrapper {
             width: 100%;
-            max-width: 450px;
+            max-width: 420px;
             display: flex;
             flex-direction: column;
             align-items: center;
             padding: 40px 20px;
         }
 
-        /* --- TRADEMARK BOX (RGB CYCLE) --- */
+        /* --- RGB TRADEMARK BOX --- */
         .trademark-box {
             width: 100%;
             background: #000;
             border: 4px solid #adff2f;
             border-radius: 15px;
-            padding: 25px 10px;
+            padding: 22px 0;
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             animation: borderRGB 4s infinite linear;
         }
 
         .trademark-text {
             font-family: 'Syncopate';
-            font-size: 22px;
+            font-size: 20px;
             font-weight: 900;
             animation: textRGB 4s infinite linear;
         }
@@ -74,14 +73,13 @@
             100% { color: #ff0000; }
         }
 
-        /* --- CENTERED TOGGLE & FPS --- */
+        /* --- TOGGLE & FPS --- */
         .toggle-row {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 20px;
+            gap: 25px;
             margin-bottom: 40px;
-            width: 100%;
         }
 
         .toggle {
@@ -94,7 +92,7 @@
             border: 2px solid rgba(255,255,255,0.3);
             backdrop-filter: blur(10px);
             display: flex;
-            align-items: center; /* Perfect Vertical Centering */
+            align-items: center;
         }
 
         body[data-dark-mode="true"] .toggle { background: var(--moon-glass); }
@@ -106,7 +104,7 @@
             border-radius: 50%;
             position: absolute;
             left: 4px;
-            transition: transform var(--speed) var(--easing), background var(--speed);
+            transition: transform 0.5s cubic-bezier(.4,-0.3,.6,1.3);
             box-shadow: 0 0 15px #ffe066;
         }
 
@@ -116,56 +114,106 @@
             box-shadow: inset -6px -2px 0 #888;
         }
 
-        .fps-counter {
-            font-weight: 800;
-            font-size: 18px;
-            color: #adff2f;
-            min-width: 90px;
-        }
+        .fps-counter { font-weight: 800; font-size: 18px; color: #adff2f; min-width: 90px; }
 
-        /* --- PORTAL BOXES (FIXED COLORS PER PHOTO) --- */
+        /* --- PORTAL BOXES --- */
         .grid-container { width: 100%; display: flex; flex-direction: column; gap: 15px; }
 
         .portal-card {
+            box-sizing: border-box;
+            width: 100%;
+            height: var(--box-height);
             background: var(--card-base);
             backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 12px;
-            padding: 20px;
+            padding: 15px 20px;
             text-decoration: none;
             color: #fff;
-            transition: transform 0.3s ease, background 0.3s;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            transition: 0.3s;
         }
 
-        .portal-card:hover { transform: scale(1.02); background: rgba(255,255,255,0.25); }
+        .card-title { font-weight: 800; font-size: 16px; margin-bottom: 4px; }
+        .card-desc { font-size: 11px; opacity: 0.8; line-height: 1.3; }
 
-        .card-title { font-weight: 800; font-size: 17px; margin-bottom: 5px; }
-        .card-desc { font-size: 12px; opacity: 0.8; line-height: 1.4; }
+        /* --- TRANSFORMING ID CARD (Reference Image Inspired) --- */
+        .id-container {
+            width: 100%;
+            height: var(--box-height);
+            position: relative;
+            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            cursor: pointer;
+            overflow: hidden;
+            background: var(--card-base);
+            backdrop-filter: blur(15px);
+            border-radius: 12px;
+            border-left: 8px solid #00f2ff;
+        }
 
-        /* --- ID CARD --- */
-        .id-card {
+        /* Initial State (Looks like other boxes) */
+        .id-initial {
+            padding: 20px;
             display: flex;
             align-items: center;
             gap: 15px;
-            padding: 15px;
-            background: var(--card-base);
-            backdrop-filter: blur(10px);
-            border-radius: 12px;
-            border-left: 8px solid #00f2ff;
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            height: 100%;
+            box-sizing: border-box;
         }
-        .id-card.tapped { transform: scale(1.08); background: rgba(0, 242, 255, 0.15); }
-        .id-photo { width: 55px; height: 55px; border-radius: 8px; border: 2px solid #00f2ff; }
 
-        .footer-info {
-            margin-top: 30px;
+        .id-initial-img { width: 50px; height: 50px; border-radius: 8px; border: 2px solid #00f2ff; }
+
+        /* Expanded State (The Badge Maker Style) */
+        .id-expanded {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: #fff; /* Solid ID card background */
             display: flex;
-            gap: 15px;
-            font-size: 10px;
-            opacity: 0.8;
-            font-weight: 800;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+            color: #1a4d2e; /* Dark green text from photo */
         }
+
+        .id-expanded .left-side {
+            flex: 1.2;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .id-expanded .right-side {
+            flex: 0.8;
+            background: #2e7d32; /* Green triangle from photo */
+            clip-path: polygon(25% 0%, 100% 0%, 100% 100%, 0% 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .id-expanded img {
+            width: 70px; height: 70px;
+            border-radius: 50%;
+            border: 3px solid #fff;
+        }
+
+        .id-expanded .name-tag { font-size: 18px; font-weight: 900; color: #2e7d32; margin-bottom: 2px; }
+        .id-expanded .detail { font-size: 10px; font-weight: 800; margin-bottom: 4px; color: #555; }
+        .id-expanded .email { font-size: 9px; font-weight: bold; color: #2e7d32; text-decoration: none; }
+
+        /* Toggled Expansion */
+        .id-container.open {
+            height: 160px; /* Expands to Card Shape */
+            border-left: none;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+        }
+        .id-container.open .id-initial { opacity: 0; }
+        .id-container.open .id-expanded { opacity: 1; pointer-events: auto; }
+
+        .footer-info { margin-top: 35px; display: flex; gap: 15px; font-size: 10px; opacity: 0.8; font-weight: 800; }
     </style>
 </head>
 <body data-dark-mode="false">
@@ -186,29 +234,41 @@
         <main class="grid-container">
             <a href="https://kavishfortech.github.io/subwaysurfers/" class="portal-card" style="border-left: 8px solid #ff9d00;">
                 <div class="card-title" style="color:#ff9d00;">SUBWAY SURFERS 2D</div>
-                <div class="card-desc">High-velocity rendering in a neon world.<br>Optimized for max FPS and low latency.</div>
+                <div class="card-desc">High-velocity rendering in a neon world. Optimized for max FPS and low latency.</div>
             </a>
 
             <a href="https://kavishfortech.github.io/Kavishforgames" class="portal-card" style="border-left: 8px solid #00ff88;">
                 <div class="card-title" style="color:#00ff88;">NEURAL ARCADE</div>
-                <div class="card-desc">Legacy hub gaming suite featuring Snake & Minesweeper.<br>V32.0 core interactive assets.</div>
+                <div class="card-desc">Legacy hub gaming suite featuring Snake & Minesweeper. V32.0 interactive assets.</div>
             </a>
 
             <a href="https://kavishfortech.github.io/Ai" class="portal-card" style="border-left: 8px solid #ffd700;">
                 <div class="card-title" style="color:#ffd700;">AI CHAT INTERFACE</div>
-                <div class="card-desc">Real-time AI processing core.<br>Direct link to the Architect's private AI.</div>
+                <div class="card-desc">Real-time AI processing core. Direct link to the Architect's private AI link.</div>
             </a>
 
-            <a href="https://github.com/kavishfortech" class="portal-card" style="border-left: 8px solid #00f2ff;">
-                <div class="card-title" style="color:#00f2ff;">GITHUB PROFILE</div>
-                <div class="card-desc">Centralized source code repository.<br>Global directory for all ARCHITECT builds.</div>
-            </a>
-
-            <div class="id-card" id="idCard">
-                <img src="https://i.ibb.co/CKY0rzSR/image.jpg" class="id-photo" alt="ID">
-                <div>
-                    <div style="font-weight:800; font-size:15px;">KAVISH SHAH</div>
-                    <div style="font-size:11px; color:#00f2ff;">ARCHITECT | 6TH GRADE</div>
+            <div class="id-container" id="idCard">
+                <div class="id-initial">
+                    <img src="https://i.ibb.co/CKY0rzSR/image.jpg" class="id-initial-img" alt="Kavish">
+                    <div>
+                        <div style="font-weight:800; font-size:14px; color:#00f2ff;">KAVISH SHAH</div>
+                        <div style="font-size:11px; color:#fff;">ARCHITECT | 6TH GRADE</div>
+                    </div>
+                </div>
+                <div class="id-expanded">
+                    <div class="left-side">
+                        <div style="font-size: 12px; font-weight: 900; color: #2e7d32;">ID CREATOR</div>
+                        <div style="margin-top: 10px;">
+                            <div class="detail">Name</div>
+                            <div class="name-tag">KAVISH SHAH</div>
+                            <div class="detail">Role: Web Designer | Grade: 6th</div>
+                            <div class="detail" style="margin-top: 5px;">Contact:</div>
+                            <a href="mailto:kavvishforbusiness@gmail.com" class="email">kavvishforbusiness@gmail.com</a>
+                        </div>
+                    </div>
+                    <div class="right-side">
+                        <img src="https://i.ibb.co/CKY0rzSR/image.jpg" alt="Kavish">
+                    </div>
                 </div>
             </div>
         </main>
@@ -226,11 +286,19 @@
             body.setAttribute('data-dark-mode', !isDark);
         }
 
-        // Real FPS Calculation
+        // Handle ID Expansion
+        const idCard = document.getElementById('idCard');
+        const ua = navigator.userAgent;
+        const isTouch = /iPad|iPhone|Android|Tablet/i.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+
+        idCard.addEventListener('click', () => {
+            idCard.classList.toggle('open');
+        });
+
+        // FPS Logic
         let lastTime = performance.now();
         let frameCount = 0;
         let fpsDisplay = document.getElementById('fps');
-
         function updateFPS() {
             frameCount++;
             let now = performance.now();
@@ -243,22 +311,11 @@
         }
         updateFPS();
 
-        // iPad / Touch detection for Tap Feature
-        const idCard = document.getElementById('idCard');
-        const ua = navigator.userAgent;
-        const isTouch = /iPad|iPhone|Android|Tablet/i.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-
-        if (isTouch) {
-            document.getElementById('dev-tag').innerText = "DEVICE: TOUCH-ENABLED";
-            idCard.addEventListener('click', () => {
-                idCard.classList.toggle('tapped');
-            });
-        } else {
-            document.getElementById('dev-tag').innerText = "DEVICE: DESKTOP";
-        }
+        document.getElementById('dev-tag').innerText = isTouch ? "DEVICE: TOUCH-HUB" : "DEVICE: DESKTOP";
     </script>
 </body>
 </html>
+
 
 
 
