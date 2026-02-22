@@ -13,7 +13,7 @@
             --bg-night: #050505;
             --bg-day: #2c7bb6;
             --card-base: rgba(255, 255, 255, 0.1);
-            --box-height: 115px; /* Perfect square-ish look for boxes */
+            --box-height: 115px;
         }
 
         body {
@@ -73,7 +73,7 @@
             100% { color: #ff0000; }
         }
 
-        /* --- CENTERED TOGGLE & FPS --- */
+        /* --- TOGGLE & FPS --- */
         .toggle-row {
             display: flex;
             align-items: center;
@@ -93,7 +93,7 @@
             border: 2px solid rgba(255,255,255,0.3);
             backdrop-filter: blur(10px);
             display: flex;
-            align-items: center; /* Vertical alignment */
+            align-items: center;
         }
 
         body[data-dark-mode="true"] .toggle { background: var(--moon-glass); }
@@ -104,7 +104,7 @@
             background: #ffe066;
             border-radius: 50%;
             position: absolute;
-            left: 4px; /* Centered in track */
+            left: 4px;
             transition: transform 0.5s cubic-bezier(.4,-0.3,.6,1.3);
             box-shadow: 0 0 15px #ffe066;
         }
@@ -117,7 +117,7 @@
 
         .fps-counter { font-weight: 800; font-size: 18px; color: #adff2f; min-width: 90px; }
 
-        /* --- UNIFORM PORTAL BOXES --- */
+        /* --- PORTAL BOXES --- */
         .grid-container { width: 100%; display: flex; flex-direction: column; gap: 15px; }
 
         .portal-card, .id-container {
@@ -141,10 +141,8 @@
         .card-title { font-weight: 800; font-size: 17px; margin-bottom: 4px; }
         .card-desc { font-size: 12px; opacity: 0.8; line-height: 1.4; }
 
-        /* --- TRANSFORMING ID CARD --- */
+        /* --- ID CARD EXPANSION --- */
         .id-container { border-left: 8px solid #00f2ff; cursor: pointer; }
-
-        .id-initial { opacity: 1; transition: opacity 0.3s; }
 
         .id-expanded {
             position: absolute;
@@ -182,14 +180,12 @@
             object-fit: cover;
         }
 
-        .id-expanded .name-header { font-size: 12px; font-weight: 900; text-transform: uppercase; margin-bottom: 5px; }
+        .id-expanded .name-header { font-size: 11px; font-weight: 900; text-transform: uppercase; }
         .id-expanded .name-tag { font-size: 19px; font-weight: 900; color: #2e7d32; }
         .id-expanded .sub-text { font-size: 10px; font-weight: 700; color: #555; }
-        .id-expanded .email { font-size: 9px; font-weight: 800; color: #2e7d32; text-decoration: none; margin-top: 5px; display: block; }
+        .id-expanded .email { font-size: 9px; font-weight: 800; color: #2e7d32; text-decoration: none; display: block; margin-top: 5px; }
 
-        /* Expansion Logic */
         .id-container.open { height: 175px; border-left-width: 0; padding: 0; }
-        .id-container.open .id-initial { opacity: 0; }
         .id-container.open .id-expanded { opacity: 1; pointer-events: auto; }
 
         .footer-info { margin-top: 35px; display: flex; gap: 15px; font-size: 10px; opacity: 0.8; font-weight: 800; }
@@ -198,7 +194,6 @@
 <body data-dark-mode="false">
 
     <div id="master-zoom-wrapper">
-        
         <div class="trademark-box">
             <div class="trademark-text">KAVISH'S WEBSITE</div>
         </div>
@@ -218,7 +213,7 @@
 
             <a href="https://kavishfortech.github.io/Kavishforgames" class="portal-card" style="border-left: 8px solid #00ff88;">
                 <div class="card-title" style="color:#00ff88;">NEURAL ARCADE</div>
-                <div class="card-desc">Legacy hub gaming suite featuring Snake & Minesweeper. V32.0 interactive assets.</div>
+                <div class="card-desc">Legacy hub gaming suite featuring Snake & Minesweeper. V32.1 interactive assets.</div>
             </a>
 
             <a href="https://kavishfortech.github.io/Ai" class="portal-card" style="border-left: 8px solid #ffd700;">
@@ -252,7 +247,7 @@
         </main>
 
         <div class="footer-info">
-            <span>VERSION: 32.0.0</span>
+            <span>VERSION: 32.0.1</span>
             <span id="dev-tag">DEVICE: --</span>
         </div>
     </div>
@@ -268,12 +263,8 @@
         const ua = navigator.userAgent;
         const isTouch = /iPad|iPhone|Android|Tablet/i.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
 
-        // ID Card Expansion Logic
-        idCard.addEventListener('click', () => {
-            idCard.classList.toggle('open');
-        });
+        idCard.addEventListener('click', () => { idCard.classList.toggle('open'); });
 
-        // Monitor actual device FPS
         let lastTime = performance.now();
         let frameCount = 0;
         let fpsDisplay = document.getElementById('fps');
@@ -293,3 +284,4 @@
     </script>
 </body>
 </html>
+
