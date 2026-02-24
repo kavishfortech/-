@@ -452,13 +452,30 @@
                 console.log("ARCHITECT SYSTEM INITIALIZED: V32.0.3");
             },
 
-            detectDevice: function() {
-                const ua = navigator.userAgent;
-                const isTouch = /iPad|iPhone|Android|Tablet/i.test(ua) || 
-                                (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-                
-                document.getElementById('deviceTag').innerText = isTouch ? "MODE: TOUCH-SYNC" : "MODE: DESKTOP-CORE";
-            },
+            <footer style="margin-top: 20px; width: 100%; text-align: center;">
+    <span id="deviceTag" style="font-size: 9px; font-weight: 800; letter-spacing: 1px; color: rgba(255,255,255,0.5); text-transform: uppercase;">
+        INITIALIZING...
+    </span>
+</footer>
+
+<script>
+    function detectDevice() {
+        const ua = navigator.userAgent;
+        const isTouch = /iPad|iPhone|Android|Tablet/i.test(ua) || 
+                        (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+        
+        const deviceElement = document.getElementById('deviceTag');
+        
+        // Applying your requested labels
+        if (isTouch) {
+            deviceElement.innerText = "DEVICE: TOUCH-SYNC";
+        } else {
+            deviceElement.innerText = "DEVICE: KEYBOARD/MOUSE";
+        }
+    
+    // This ensures it runs as soon as the page opens
+    detectDevice();
+</script>
 
             detectTheme: function() {
                 // Auto-detect phone theme
