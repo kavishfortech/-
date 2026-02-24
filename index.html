@@ -385,7 +385,7 @@
                 const isTouch = /iPad|iPhone|Android|Tablet/i.test(ua) || 
                                 (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
                 
-                document.getElementById('deviceLog').innerText = isTouch ? "DEVICE: TOUCH-SYNC" : "DEVICE: KEYBOARD/MOUSE";
+                document.getElementById('deviceLog').innerText = isTouch ? "DEVICE: Mobile/tablet(touch) " : "DEVICE: laptop/pc (KEYBOARD/MOUSE)";
             },
 
             loopFPS: function() {
